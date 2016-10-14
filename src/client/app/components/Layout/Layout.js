@@ -3,14 +3,14 @@ import Header from "../Header";
 import Navbar from "../Navbar";
 
 export default class Layout extends React.Component {
-  constructor() {
+  constructor () {
     super();
     this.state = {
       title: "Welcome",
     };
   }
 
-  render() {
+  render () {
     return (
       <div>
         <Header />

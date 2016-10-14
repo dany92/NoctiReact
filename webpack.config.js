@@ -6,11 +6,11 @@ let path = require('path');
 
 module.exports = {
   context: path.join(__dirname, "src"),
-  entry: "../src/client/app/index.js",
+  entry: "./client/app/index.js",
   module: {
     loaders: [
       {
-        test: /\.js?$/,
+        test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
         loader: 'babel-loader',
         query: {
@@ -20,7 +20,7 @@ module.exports = {
     ]
   },
   output: {
-    path: __dirname + "../src/client/public",
+    path: __dirname + "/src/client/public",
     filename: "build.js"
   }
 };

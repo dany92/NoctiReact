@@ -1,8 +1,8 @@
-import React from "react";
+import React, { Component } from "react";
 import Header from "../Header";
 import Navbar from "../Navbar";
 
-export default class Layout extends React.Component {
+export default class Layout extends Component {
   constructor () {
     super();
     this.state = {

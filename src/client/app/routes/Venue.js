@@ -12,9 +12,10 @@ class Venue extends Component {
 	}
 	componentDidMount(){
 		axios.get('/api/venues')
-		.then(venues =>{
-			this.setState({venues: venues.data});
-			console.log(this.state.venues);
+		.then(res =>{
+			// this.setState({venues: res.data});
+			console.log("state has not been set", this.state.venues);
+			console.log("api returned venues", res.data);
 		})
 	}
 

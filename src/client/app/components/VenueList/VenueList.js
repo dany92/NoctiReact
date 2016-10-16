@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from "react";
+import { connect } from 'react-redux';
 
 import VenueItem from '../VenueItem'
 
@@ -22,4 +23,7 @@ VenueList.propTypes = {
   venues: PropTypes.array
 };
 
-export default VenueList;
+let mapStateToProps = (state) => {
+  return { venues: state.venues }
+}
+export default connect(mapStateToProps)(VenueList);

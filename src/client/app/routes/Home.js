@@ -4,7 +4,9 @@ import axios from 'axios';
 export default class Home extends Component {
 	constructor(props){
 		super(props);
-		this.state = { business: [] }
+		this.state = { 
+			business: [] 
+		}
 	}
 	componentDidMount(){
 		axios.get('/api/business')
@@ -18,6 +20,7 @@ export default class Home extends Component {
 		return (
 			<div>
 		  		<h1> This is Home </h1>
+		  		{this.state.business.map((b,index) => <p key={index}>{b.name}</p>)}
 		  	</div>
 		);
 	}

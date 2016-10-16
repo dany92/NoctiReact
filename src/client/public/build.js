@@ -27293,7 +27293,9 @@
 
 			var _this = _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
 
-			_this.state = { business: [] };
+			_this.state = {
+				business: []
+			};
 			return _this;
 		}
 
@@ -27317,7 +27319,14 @@
 						'h1',
 						null,
 						' This is Home '
-					)
+					),
+					this.state.business.map(function (b, index) {
+						return _react2.default.createElement(
+							'p',
+							{ key: index },
+							b.name
+						);
+					})
 				);
 			}
 		}]);

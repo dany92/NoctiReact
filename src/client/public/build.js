@@ -27308,7 +27308,7 @@
 					_react2.default.createElement(
 						'h1',
 						null,
-						' This is Home '
+						' This is Home! '
 					)
 				);
 			}
@@ -28816,6 +28816,10 @@
 
 	var _axios2 = _interopRequireDefault(_axios);
 
+	var _VenueList = __webpack_require__(265);
+
+	var _VenueList2 = _interopRequireDefault(_VenueList);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28859,13 +28863,7 @@
 						null,
 						' This is Venues page '
 					),
-					this.state.venues.map(function (venue, index) {
-						return _react2.default.createElement(
-							'p',
-							{ key: index },
-							venue.name
-						);
-					})
+					_react2.default.createElement(_VenueList2.default, { venues: this.state.venues })
 				);
 			}
 		}]);
@@ -28874,6 +28872,118 @@
 	}(_react.Component);
 
 	exports.default = Venue;
+
+/***/ },
+/* 265 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _VenueItem = __webpack_require__(266);
+
+	var _VenueItem2 = _interopRequireDefault(_VenueItem);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var VenueList = function (_Component) {
+	  _inherits(VenueList, _Component);
+
+	  function VenueList() {
+	    _classCallCheck(this, VenueList);
+
+	    return _possibleConstructorReturn(this, (VenueList.__proto__ || Object.getPrototypeOf(VenueList)).call(this));
+	  }
+
+	  _createClass(VenueList, [{
+	    key: "render",
+	    value: function render() {
+	      return _react2.default.createElement(
+	        "div",
+	        null,
+	        this.props.venues.map(function (venue, index) {
+	          return _react2.default.createElement(_VenueItem2.default, { key: index, venue: venue });
+	        })
+	      );
+	    }
+	  }]);
+
+	  return VenueList;
+	}(_react.Component);
+
+	VenueList.propTypes = {
+	  venues: _react.PropTypes.array
+	};
+
+	exports.default = VenueList;
+
+/***/ },
+/* 266 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var VenueItem = function (_Component) {
+	  _inherits(VenueItem, _Component);
+
+	  function VenueItem() {
+	    _classCallCheck(this, VenueItem);
+
+	    return _possibleConstructorReturn(this, (VenueItem.__proto__ || Object.getPrototypeOf(VenueItem)).call(this));
+	  }
+
+	  _createClass(VenueItem, [{
+	    key: "render",
+	    value: function render() {
+	      return _react2.default.createElement(
+	        "div",
+	        null,
+	        this.props.venue.address
+	      );
+	    }
+	  }]);
+
+	  return VenueItem;
+	}(_react.Component);
+
+	VenueItem.propTypes = {
+	  venue: _react.PropTypes.object
+	};
+
+	exports.default = VenueItem;
 
 /***/ }
 /******/ ]);

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-export default class Venue extends Component {
+import VenueList from '../components/VenueList'
+
+class Venue extends Component {
 	constructor(props){
 		super(props);
 		this.state = { 
@@ -20,8 +22,10 @@ export default class Venue extends Component {
 		return (
 			<div>
 		  		<h1> This is Venues page </h1>
-		  		{this.state.venues.map((venue, index) => <p key={index}>{venue.name}</p>)}
+		  		<VenueList venues={this.state.venues} />
 		  	</div>
 		);
 	}
 }
+
+export default Venue;

@@ -18,7 +18,7 @@ let publicPath = path.join(__dirname, './src/client');
 app.use(Express.static(npmPath));
 app.use(Express.static(publicPath));
 
-app.use('/api/business', (req,res,next) => res.send(Business));
+app.use('/api/venues', (req,res,next) => res.send(Business));
 
 app.use('/', function(req,res,next){
 	res.sendFile(path.join(__dirname,'./src/client/public/index.html'));

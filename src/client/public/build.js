@@ -62,6 +62,10 @@
 
 	var _Home2 = _interopRequireDefault(_Home);
 
+	var _Venue = __webpack_require__(264);
+
+	var _Venue2 = _interopRequireDefault(_Venue);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var app = document.getElementById('app');
@@ -72,7 +76,8 @@
 		_react2.default.createElement(
 			_reactRouter.Route,
 			{ path: "/", component: _Layout2.default },
-			_react2.default.createElement(_reactRouter.IndexRoute, { component: _Home2.default })
+			_react2.default.createElement(_reactRouter.IndexRoute, { component: _Home2.default }),
+			_react2.default.createElement(_reactRouter.Route, { path: "venues", component: _Venue2.default })
 		)
 	), app);
 
@@ -27288,28 +27293,13 @@
 	var Home = function (_Component) {
 		_inherits(Home, _Component);
 
-		function Home(props) {
+		function Home() {
 			_classCallCheck(this, Home);
 
-			var _this = _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
-
-			_this.state = {
-				business: []
-			};
-			return _this;
+			return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).apply(this, arguments));
 		}
 
 		_createClass(Home, [{
-			key: 'componentDidMount',
-			value: function componentDidMount() {
-				var _this2 = this;
-
-				_axios2.default.get('/api/business').then(function (business) {
-					_this2.setState({ business: business.data });
-					console.log(_this2.state.business);
-				});
-			}
-		}, {
 			key: 'render',
 			value: function render() {
 				return _react2.default.createElement(
@@ -27319,14 +27309,7 @@
 						'h1',
 						null,
 						' This is Home '
-					),
-					this.state.business.map(function (b, index) {
-						return _react2.default.createElement(
-							'p',
-							{ key: index },
-							b.name
-						);
-					})
+					)
 				);
 			}
 		}]);
@@ -28812,6 +28795,85 @@
 	  };
 	};
 
+
+/***/ },
+/* 264 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _axios = __webpack_require__(239);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Venue = function (_Component) {
+		_inherits(Venue, _Component);
+
+		function Venue(props) {
+			_classCallCheck(this, Venue);
+
+			var _this = _possibleConstructorReturn(this, (Venue.__proto__ || Object.getPrototypeOf(Venue)).call(this, props));
+
+			_this.state = {
+				venues: []
+			};
+			return _this;
+		}
+
+		_createClass(Venue, [{
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				var _this2 = this;
+
+				_axios2.default.get('/api/venues').then(function (venues) {
+					_this2.setState({ venues: venues.data });
+					console.log(_this2.state.venues);
+				});
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'h1',
+						null,
+						' This is Venues page '
+					),
+					this.state.venues.map(function (venue, index) {
+						return _react2.default.createElement(
+							'p',
+							{ key: index },
+							venue.name
+						);
+					})
+				);
+			}
+		}]);
+
+		return Venue;
+	}(_react.Component);
+
+	exports.default = Venue;
 
 /***/ }
 /******/ ]);

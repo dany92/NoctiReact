@@ -1,6 +1,3 @@
-// let APP_DIR = path.resolve(__dirname, 'src/client/app');
-// let BUILD_DIR = path.resolve(__dirname, 'src/client/public');
-
 let webpack = require('webpack');
 let path = require('path');
 

@@ -52,8 +52,6 @@
 
 	var _reactDom = __webpack_require__(34);
 
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
 	var _reactRouter = __webpack_require__(172);
 
 	var _Layout = __webpack_require__(235);
@@ -68,7 +66,7 @@
 
 	var app = document.getElementById('app');
 
-	_reactDom2.default.render(_react2.default.createElement(
+	(0, _reactDom.render)(_react2.default.createElement(
 		_reactRouter.Router,
 		{ history: _reactRouter.hashHistory },
 		_react2.default.createElement(

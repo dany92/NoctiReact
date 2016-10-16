@@ -28904,10 +28904,10 @@
 	var VenueList = function (_Component) {
 	  _inherits(VenueList, _Component);
 
-	  function VenueList() {
+	  function VenueList(props) {
 	    _classCallCheck(this, VenueList);
 
-	    return _possibleConstructorReturn(this, (VenueList.__proto__ || Object.getPrototypeOf(VenueList)).call(this));
+	    return _possibleConstructorReturn(this, (VenueList.__proto__ || Object.getPrototypeOf(VenueList)).call(this, props));
 	  }
 
 	  _createClass(VenueList, [{
@@ -28959,10 +28959,10 @@
 	var VenueItem = function (_Component) {
 	  _inherits(VenueItem, _Component);
 
-	  function VenueItem() {
+	  function VenueItem(props) {
 	    _classCallCheck(this, VenueItem);
 
-	    return _possibleConstructorReturn(this, (VenueItem.__proto__ || Object.getPrototypeOf(VenueItem)).call(this));
+	    return _possibleConstructorReturn(this, (VenueItem.__proto__ || Object.getPrototypeOf(VenueItem)).call(this, props));
 	  }
 
 	  _createClass(VenueItem, [{
@@ -28971,7 +28971,7 @@
 	      return _react2.default.createElement(
 	        "div",
 	        null,
-	        this.props.venue.address
+	        this.props.venue.name
 	      );
 	    }
 	  }]);

@@ -1,14 +1,14 @@
 import React, { Component, PropTypes } from "react";
 
 class VenueItem extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
   }
 
   render() {
     return (
       <div>
-        {this.props.venue.address}
+        {this.props.venue.name}
       </div>
     );
   }

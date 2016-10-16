@@ -3,14 +3,16 @@ import React, { Component, PropTypes } from "react";
 import VenueItem from '../VenueItem'
 
 class VenueList extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
   }
 
   render() {
     return (
       <div>
-        {this.props.venues.map((venue, index) => <VenueItem key={index} venue={venue} />)}
+        { this.props.venues.map((venue, index) => 
+            <VenueItem key={index} venue={venue} /> 
+        )}
       </div>
     );
   }

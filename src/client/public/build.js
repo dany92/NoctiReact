@@ -30388,8 +30388,9 @@
 				var _this2 = this;
 
 				_axios2.default.get('/api/venues').then(function (res) {
-					// this.setState({venues: res.data});
-					console.log("state has not been set", _this2.state.venues);
+					// this.setState({venues: res.data}) 
+					// Now you don't need <VenueList venues={this.state.venues} />;
+					console.log("no more local state for venues", _this2.state.venues);
 					console.log("api returned venues", res.data);
 				});
 			}
@@ -30404,7 +30405,7 @@
 						null,
 						' This is Venues page '
 					),
-					_react2.default.createElement(_VenueList2.default, { venues: this.state.venues })
+					_react2.default.createElement(_VenueList2.default, null)
 				);
 			}
 		}]);
@@ -30557,36 +30558,116 @@
 
 /***/ },
 /* 291 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _businessSeed = __webpack_require__(292);
+
+	var _businessSeed2 = _interopRequireDefault(_businessSeed);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var venues = function venues() {
+		var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+		var action = arguments[1];
+
+		switch (action.type) {
+			default:
+				return state.concat(_businessSeed2.default);
+		}
+	};
+
+	exports.default = venues;
+
+/***/ },
+/* 292 */
 /***/ function(module, exports) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
+	var Business = [{
+	    name: 'Lil Branch',
+	    address: '22 7th Ave S, New York, NY 10014',
+	    lat: 40.736040,
+	    long: -74.001724,
+	    category: 'bar',
+	    email: 'whatever@gmail.com',
+	    phone: '203-234-6633',
+	    website: 'www.lilbranch.com'
+	}, {
+	    name: 'Alcohol is my life',
+	    address: '45 10th Ave S, New York, NY 10014',
+	    lat: 40.808364,
+	    long: -73.947161,
+	    category: 'bar',
+	    email: 'drinkaway@gmail.com',
+	    phone: '324-345-7777',
+	    website: 'www.yay.com'
+	}, {
+	    name: 'Stony Rock',
+	    address: '602 Madison Ave, New York, NY 10014',
+	    lat: 40.739937,
+	    long: -74.004932,
+	    category: 'bar',
+	    email: 'yolo@gmail.com',
+	    phone: '535-674-8457',
+	    website: 'www.namingishard.com'
+	}, {
+	    name: 'Envi',
+	    address: '160 33th, New York, NY 10014',
+	    lat: 40.72337,
+	    long: -74.002432,
+	    category: 'nightclub',
+	    email: 'comeweekend@gmail.com',
+	    phone: '346-466-4667',
+	    website: 'www.weekendforever.com'
+	}, {
+	    name: 'Tipsy',
+	    address: '326 Spring St, New York, NY 10013',
+	    lat: 40.76337,
+	    long: -74.001432,
+	    category: 'nightclub',
+	    email: 'watchout@gmail.com',
+	    phone: '758-344-0940',
+	    website: 'www.onlyslightlytipsy.com'
+	}, {
+	    name: 'The Legend',
+	    address: '2533 Fall Hill Dr, San Francisco, CA 94133',
+	    lat: 37.803722,
+	    long: -122.415576,
+	    category: 'nightclub',
+	    email: 'dawn@gmail.com',
+	    phone: '111-222-0357',
+	    website: 'www.levelup.com'
+	}, {
+	    name: 'Rooftop',
+	    address: '86 Cringe St, New York, NY 10013',
+	    lat: 40.6782,
+	    long: -73.8442,
+	    category: 'nightclub',
+	    email: 'dawn@gmail.com',
+	    phone: '155-010-4755',
+	    website: 'www.onthetop.com'
+	}, {
+	    name: 'The Alley',
+	    address: '729 Alley St, New York, NY 10034',
+	    lat: 40.6601,
+	    long: -73.7589,
+	    category: 'nightclub',
+	    email: 'alley@gmail.com',
+	    phone: '243-864-4996',
+	    website: 'www.thealley.com'
+	}];
 
-	var dummy = {
-	  name: 'Lil Branch',
-	  address: '22 7th Ave S, New York, NY 10014',
-	  lat: 40.736040,
-	  long: -74.001724,
-	  category: 'bar',
-	  email: 'whatever@gmail.com',
-	  phone: '203-234-6633',
-	  website: 'www.lilbranch.com'
-	};
-
-	var venues = function venues() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-	  var action = arguments[1];
-
-	  switch (action.type) {
-	    default:
-	      return state.concat([dummy]);
-	  }
-	};
-
-	exports.default = venues;
+	exports.default = Business;
 
 /***/ }
 /******/ ]);

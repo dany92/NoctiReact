@@ -13,8 +13,9 @@ class Venue extends Component {
 	componentDidMount(){
 		axios.get('/api/venues')
 		.then(res =>{
-			// this.setState({venues: res.data});
-			console.log("state has not been set", this.state.venues);
+			// this.setState({venues: res.data}) 
+			// Now you don't need <VenueList venues={this.state.venues} />;
+			console.log("no more local state for venues", this.state.venues);
 			console.log("api returned venues", res.data);
 		})
 	}
@@ -23,7 +24,7 @@ class Venue extends Component {
 		return (
 			<div>
 		  		<h1> This is Venues page </h1>
-		  		<VenueList venues={this.state.venues} />
+		  		<VenueList />
 		  	</div>
 		);
 	}

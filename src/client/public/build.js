@@ -76,7 +76,11 @@
 
 	var _Venue2 = _interopRequireDefault(_Venue);
 
-	var _reducers = __webpack_require__(290);
+	var _VenueDetail = __webpack_require__(290);
+
+	var _VenueDetail2 = _interopRequireDefault(_VenueDetail);
+
+	var _reducers = __webpack_require__(291);
 
 	var _reducers2 = _interopRequireDefault(_reducers);
 
@@ -101,7 +105,8 @@
 					_reactRouter.Route,
 					{ path: "/", component: _Layout2.default },
 					_react2.default.createElement(_reactRouter.IndexRoute, { component: _Home2.default }),
-					_react2.default.createElement(_reactRouter.Route, { path: "venues", component: _Venue2.default })
+					_react2.default.createElement(_reactRouter.Route, { path: "/venues", component: _Venue2.default }),
+					_react2.default.createElement(_reactRouter.Route, { path: "/venues/:id", component: _VenueDetail2.default })
 				)
 			)
 		), app);
@@ -30495,6 +30500,8 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactRouter = __webpack_require__(172);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -30515,10 +30522,24 @@
 	  _createClass(VenueItem, [{
 	    key: "render",
 	    value: function render() {
+	      var detailsUrl = "/venues/" + this.props.venue.id;
 	      return _react2.default.createElement(
 	        "div",
 	        null,
-	        this.props.venue.name
+	        _react2.default.createElement(
+	          "div",
+	          null,
+	          this.props.venue.name
+	        ),
+	        _react2.default.createElement(
+	          "button",
+	          null,
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: detailsUrl },
+	            "Details"
+	          )
+	        )
 	      );
 	    }
 	  }]);
@@ -30542,9 +30563,62 @@
 		value: true
 	});
 
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var VenueDetail = function (_Component) {
+		_inherits(VenueDetail, _Component);
+
+		function VenueDetail() {
+			_classCallCheck(this, VenueDetail);
+
+			return _possibleConstructorReturn(this, (VenueDetail.__proto__ || Object.getPrototypeOf(VenueDetail)).apply(this, arguments));
+		}
+
+		_createClass(VenueDetail, [{
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'h1',
+						null,
+						' This is VenueDetail! '
+					)
+				);
+			}
+		}]);
+
+		return VenueDetail;
+	}(_react.Component);
+
+	exports.default = VenueDetail;
+
+/***/ },
+/* 291 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
 	var _redux = __webpack_require__(235);
 
-	var _venues = __webpack_require__(291);
+	var _venues = __webpack_require__(292);
 
 	var _venues2 = _interopRequireDefault(_venues);
 
@@ -30557,7 +30631,7 @@
 	exports.default = rootReducer;
 
 /***/ },
-/* 291 */
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30566,7 +30640,7 @@
 		value: true
 	});
 
-	var _businessSeed = __webpack_require__(292);
+	var _businessSeed = __webpack_require__(293);
 
 	var _businessSeed2 = _interopRequireDefault(_businessSeed);
 
@@ -30585,7 +30659,7 @@
 	exports.default = venues;
 
 /***/ },
-/* 292 */
+/* 293 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -30594,6 +30668,7 @@
 	    value: true
 	});
 	var Business = [{
+	    id: 1,
 	    name: 'Lil Branch',
 	    address: '22 7th Ave S, New York, NY 10014',
 	    lat: 40.736040,
@@ -30603,6 +30678,7 @@
 	    phone: '203-234-6633',
 	    website: 'www.lilbranch.com'
 	}, {
+	    id: 2,
 	    name: 'Alcohol is my life',
 	    address: '45 10th Ave S, New York, NY 10014',
 	    lat: 40.808364,
@@ -30612,6 +30688,7 @@
 	    phone: '324-345-7777',
 	    website: 'www.yay.com'
 	}, {
+	    id: 3,
 	    name: 'Stony Rock',
 	    address: '602 Madison Ave, New York, NY 10014',
 	    lat: 40.739937,
@@ -30621,6 +30698,7 @@
 	    phone: '535-674-8457',
 	    website: 'www.namingishard.com'
 	}, {
+	    id: 4,
 	    name: 'Envi',
 	    address: '160 33th, New York, NY 10014',
 	    lat: 40.72337,
@@ -30630,6 +30708,7 @@
 	    phone: '346-466-4667',
 	    website: 'www.weekendforever.com'
 	}, {
+	    id: 5,
 	    name: 'Tipsy',
 	    address: '326 Spring St, New York, NY 10013',
 	    lat: 40.76337,
@@ -30639,6 +30718,7 @@
 	    phone: '758-344-0940',
 	    website: 'www.onlyslightlytipsy.com'
 	}, {
+	    id: 6,
 	    name: 'The Legend',
 	    address: '2533 Fall Hill Dr, San Francisco, CA 94133',
 	    lat: 37.803722,
@@ -30648,6 +30728,7 @@
 	    phone: '111-222-0357',
 	    website: 'www.levelup.com'
 	}, {
+	    id: 7,
 	    name: 'Rooftop',
 	    address: '86 Cringe St, New York, NY 10013',
 	    lat: 40.6782,
@@ -30657,6 +30738,7 @@
 	    phone: '155-010-4755',
 	    website: 'www.onthetop.com'
 	}, {
+	    id: 8,
 	    name: 'The Alley',
 	    address: '729 Alley St, New York, NY 10034',
 	    lat: 40.6601,

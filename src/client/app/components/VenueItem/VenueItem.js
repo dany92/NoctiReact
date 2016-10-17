@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from "react";
+import { Link } from 'react-router';
 
 class VenueItem extends Component {
   constructor(props) {
@@ -6,9 +7,17 @@ class VenueItem extends Component {
   }
 
   render() {
+    let detailsUrl = `/venues/${this.props.venue.id}`;
     return (
       <div>
-        {this.props.venue.name}
+        <div>
+          {this.props.venue.name}
+        </div>
+        <button>
+          <Link to={detailsUrl}>
+            Details
+          </Link>
+        </button>
       </div>
     );
   }

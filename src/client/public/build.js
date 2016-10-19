@@ -30629,7 +30629,7 @@
 	}(_react.Component);
 
 	VenueDetail.propTypes = {
-		venue: _react.PropTypes.object
+		venues: _react.PropTypes.array
 	};
 
 	var mapStateToProps = function mapStateToProps(state) {

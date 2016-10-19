@@ -25,7 +25,7 @@ class VenueDetail extends Component {
 }
 
 VenueDetail.propTypes = {
-  venue: PropTypes.object
+  venues: PropTypes.array
 };
 
 let mapStateToProps = (state) => {

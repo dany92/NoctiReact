@@ -1,4 +1,4 @@
-import dummyVenues from '../../../../seed/business-seed';
+import dummyVenues from '../../../../seed/venue-seed';
 
 const venues = (state = [], action) => {
 	switch(action.type){

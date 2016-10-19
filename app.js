@@ -3,7 +3,7 @@ import { createServer } from 'http';
 import path from 'path';
 import bodyParser from 'body-parser';
 
-import Business from './seed/business-seed'
+import Venue from './seed/venue-seed'
 
 let app = Express();
 let server = createServer();
@@ -18,7 +18,7 @@ let publicPath = path.join(__dirname, './src/client');
 app.use(Express.static(npmPath));
 app.use(Express.static(publicPath));
 
-app.use('/api/venues', (req,res,next) => res.send(Business));
+app.use('/api/venues', (req,res,next) => res.send(Venue));
 
 app.use('/', function(req,res,next){
 	res.sendFile(path.join(__dirname,'./src/client/public/index.html'));

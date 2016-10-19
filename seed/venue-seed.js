@@ -1,4 +1,4 @@
-let Business = [
+let Venue = [
     {
         id: 1,
         name: 'Lil Branch',
@@ -89,4 +89,4 @@ let Business = [
     }
 ];
 
-export default Business;
+export default Venue;

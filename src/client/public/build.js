@@ -30654,10 +30654,14 @@
 
 	var _venues2 = _interopRequireDefault(_venues);
 
+	var _events = __webpack_require__(294);
+
+	var _events2 = _interopRequireDefault(_events);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var rootReducer = (0, _redux.combineReducers)({
-		venues: _venues2.default
+		venues: _venues2.default, events: _events2.default
 	});
 
 	exports.default = rootReducer;
@@ -30672,9 +30676,9 @@
 		value: true
 	});
 
-	var _businessSeed = __webpack_require__(293);
+	var _venueSeed = __webpack_require__(293);
 
-	var _businessSeed2 = _interopRequireDefault(_businessSeed);
+	var _venueSeed2 = _interopRequireDefault(_venueSeed);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30684,7 +30688,7 @@
 
 		switch (action.type) {
 			default:
-				return state.concat(_businessSeed2.default);
+				return state.concat(_venueSeed2.default);
 		}
 	};
 
@@ -30699,7 +30703,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	var Business = [{
+	var Venue = [{
 	    id: 1,
 	    name: 'Lil Branch',
 	    address: '22 7th Ave S, New York, NY 10014',
@@ -30781,7 +30785,78 @@
 	    website: 'www.thealley.com'
 	}];
 
-	exports.default = Business;
+	exports.default = Venue;
+
+/***/ },
+/* 294 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _eventSeed = __webpack_require__(295);
+
+	var _eventSeed2 = _interopRequireDefault(_eventSeed);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var events = function events() {
+		var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+		var action = arguments[1];
+
+		switch (action.type) {
+			default:
+				return state.concat(_eventSeed2.default);
+		}
+	};
+
+	exports.default = events;
+
+/***/ },
+/* 295 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	var Event = [{
+	    title: 'Ladies Night',
+	    description: 'The night is for ladies',
+	    start_date: '2016-03-02 23:30',
+	    end_date: '2016-03-03 4:30',
+	    businessId: 1
+	}, {
+	    title: 'Hot Summer Night',
+	    description: 'Make your summer night memorable',
+	    start_date: '2016-08-29 23:30',
+	    end_date: '2016-08-30 4:30',
+	    businessId: 1
+	}, {
+	    title: 'Alpha Di Mixer',
+	    description: 'Best Frat Party of the Year',
+	    start_date: '2016-05-11 22:00',
+	    end_date: '2016-05-12 2:00',
+	    businessId: 1
+	}, {
+	    title: 'Valentine Special',
+	    description: "Couples, have night of fun. Singles, it's about time to meet someone",
+	    start_date: '2016-02-14 23:00',
+	    end_date: '2016-02-15 6:00',
+	    businessId: 2
+	}, {
+	    title: 'Christmas Event',
+	    description: 'Party of the Year. Join us on White Christmas',
+	    start_date: '2016-12-24 20:00',
+	    end_date: '2016-12-25 4:00',
+	    businessId: 3
+	}];
+
+	exports.default = Event;
 
 /***/ }
 /******/ ]);

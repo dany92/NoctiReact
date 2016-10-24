@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { dispatch } from 'redux';
 
 const _getAllVenues = (venues=[]) => (
 	{
@@ -16,9 +15,7 @@ export const fetchAll = () => {
 		}else {
 			axios.get("/api/venues").
 			then(res => {
-				console.log("dispatch", dispatch);
 				dispatch(_getAllVenues(res.data));
-
 			})
 		}
 	}

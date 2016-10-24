@@ -30474,7 +30474,6 @@
 				dispatch(_getAllVenues());
 			} else {
 				_axios2.default.get("/api/venues").then(function (res) {
-					console.log("dispatch", dispatch);
 					dispatch(_getAllVenues(res.data));
 				});
 			}
@@ -30793,7 +30792,7 @@
 /* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -30803,8 +30802,6 @@
 	var _axios = __webpack_require__(262);
 
 	var _axios2 = _interopRequireDefault(_axios);
-
-	var _redux = __webpack_require__(235);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30820,11 +30817,10 @@
 		console.log("fetching data");
 		return function (dispatch, getState) {
 			var currentEvents = getState().events;
-			if (currentEvents.legnth > 0) {
+			if (currentEvents.length > 0) {
 				dispatch(_getAllEvents());
 			} else {
 				_axios2.default.get("/api/events").then(function (res) {
-					console.log("dispatch", dispatch);
 					dispatch(_getAllEvents(res.data));
 				});
 			}

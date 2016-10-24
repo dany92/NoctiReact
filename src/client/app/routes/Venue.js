@@ -1,5 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+
+import { fetchAll } from '../actions/venues';
 
 import VenueList from '../components/VenueList'
 
@@ -11,13 +14,7 @@ class Venue extends Component {
 		}
 	}
 	componentDidMount(){
-		axios.get('/api/venues')
-		.then(res =>{
-			// this.setState({venues: res.data}) 
-			// Now you don't need <VenueList venues={this.state.venues} />;
-			console.log("no more local state for venues", this.state.venues);
-			console.log("api returned venues", res.data);
-		})
+		this.props.onMount();
 	}
 
 	render() {
@@ -30,4 +27,19 @@ class Venue extends Component {
 	}
 }
 
-export default Venue;
+Venue.propTypes = {
+  venues: PropTypes.array
+};
+
+let mapStateToProps = (state) => {
+  console.log("state from Venue Route component",state);
+  return { venues: state.venues }
+}
+
+let mapDispatchToProps = (dispatch) => ({
+	onMount: () => {
+		dispatch(fetchAll())
+	} 
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Venue);

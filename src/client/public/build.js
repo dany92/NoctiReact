@@ -76,15 +76,15 @@
 
 	var _Venue2 = _interopRequireDefault(_Venue);
 
-	var _VenueDetail = __webpack_require__(290);
+	var _VenueDetail = __webpack_require__(291);
 
 	var _VenueDetail2 = _interopRequireDefault(_VenueDetail);
 
-	var _Event = __webpack_require__(291);
+	var _Event = __webpack_require__(292);
 
 	var _Event2 = _interopRequireDefault(_Event);
 
-	var _reducers = __webpack_require__(295);
+	var _reducers = __webpack_require__(296);
 
 	var _reducers2 = _interopRequireDefault(_reducers);
 
@@ -30366,7 +30366,11 @@
 
 	var _axios2 = _interopRequireDefault(_axios);
 
-	var _VenueList = __webpack_require__(288);
+	var _reactRedux = __webpack_require__(250);
+
+	var _venues = __webpack_require__(288);
+
+	var _VenueList = __webpack_require__(289);
 
 	var _VenueList2 = _interopRequireDefault(_VenueList);
 
@@ -30395,14 +30399,7 @@
 		_createClass(Venue, [{
 			key: 'componentDidMount',
 			value: function componentDidMount() {
-				var _this2 = this;
-
-				_axios2.default.get('/api/venues').then(function (res) {
-					// this.setState({venues: res.data}) 
-					// Now you don't need <VenueList venues={this.state.venues} />;
-					console.log("no more local state for venues", _this2.state.venues);
-					console.log("api returned venues", res.data);
-				});
+				this.props.onMount();
 			}
 		}, {
 			key: 'render',
@@ -30423,10 +30420,63 @@
 		return Venue;
 	}(_react.Component);
 
-	exports.default = Venue;
+	Venue.propTypes = {
+		venues: _react.PropTypes.array
+	};
+
+	var mapStateToProps = function mapStateToProps(state) {
+		console.log("state from Venue Route component", state);
+		return { venues: state.venues };
+	};
+
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+		return {
+			onMount: function onMount() {
+				dispatch((0, _venues.fetchAll)());
+			}
+		};
+	};
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Venue);
 
 /***/ },
 /* 288 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.fetchAll = undefined;
+
+	var _axios = __webpack_require__(262);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	var _redux = __webpack_require__(235);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var _getAllVenues = function _getAllVenues(venues) {
+		return {
+			type: "GET_VENUES",
+			payload: { venues: venues }
+		};
+	};
+
+	var fetchAll = exports.fetchAll = function fetchAll() {
+		console.log("fetching data");
+		return function (dispatch) {
+			_axios2.default.get("/api/venues").then(function (res) {
+				console.log("dispatch", dispatch);
+				dispatch(_getAllVenues(res.data));
+			});
+		};
+	};
+
+/***/ },
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30443,7 +30493,7 @@
 
 	var _reactRedux = __webpack_require__(250);
 
-	var _VenueItem = __webpack_require__(289);
+	var _VenueItem = __webpack_require__(290);
 
 	var _VenueItem2 = _interopRequireDefault(_VenueItem);
 
@@ -30490,7 +30540,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(VenueList);
 
 /***/ },
-/* 289 */
+/* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30559,7 +30609,7 @@
 	exports.default = VenueItem;
 
 /***/ },
-/* 290 */
+/* 291 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30644,7 +30694,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(VenueDetail);
 
 /***/ },
-/* 291 */
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30661,9 +30711,9 @@
 
 	var _reactRedux = __webpack_require__(250);
 
-	var _events = __webpack_require__(292);
+	var _events = __webpack_require__(293);
 
-	var _EventList = __webpack_require__(293);
+	var _EventList = __webpack_require__(294);
 
 	var _EventList2 = _interopRequireDefault(_EventList);
 
@@ -30734,7 +30784,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Event);
 
 /***/ },
-/* 292 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30770,7 +30820,7 @@
 	};
 
 /***/ },
-/* 293 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30787,7 +30837,7 @@
 
 	var _reactRedux = __webpack_require__(250);
 
-	var _EventItem = __webpack_require__(294);
+	var _EventItem = __webpack_require__(295);
 
 	var _EventItem2 = _interopRequireDefault(_EventItem);
 
@@ -30809,9 +30859,6 @@
 	  }
 
 	  _createClass(EventList, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {}
-	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -30839,7 +30886,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(EventList);
 
 /***/ },
-/* 294 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -30908,7 +30955,7 @@
 	exports.default = EventItem;
 
 /***/ },
-/* 295 */
+/* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30919,11 +30966,11 @@
 
 	var _redux = __webpack_require__(235);
 
-	var _venues = __webpack_require__(296);
+	var _venues = __webpack_require__(297);
 
 	var _venues2 = _interopRequireDefault(_venues);
 
-	var _events = __webpack_require__(298);
+	var _events = __webpack_require__(299);
 
 	var _events2 = _interopRequireDefault(_events);
 
@@ -30936,16 +30983,16 @@
 	exports.default = rootReducer;
 
 /***/ },
-/* 296 */
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 
-	var _venueSeed = __webpack_require__(297);
+	var _venueSeed = __webpack_require__(298);
 
 	var _venueSeed2 = _interopRequireDefault(_venueSeed);
 
@@ -30956,15 +31003,17 @@
 		var action = arguments[1];
 
 		switch (action.type) {
+			case "GET_VENUES":
+				return state.concat(action.payload.venues);
 			default:
-				return state.concat(_venueSeed2.default);
+				return state;
 		}
 	};
 
 	exports.default = venues;
 
 /***/ },
-/* 297 */
+/* 298 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -31057,7 +31106,7 @@
 	exports.default = Venue;
 
 /***/ },
-/* 298 */
+/* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31066,7 +31115,7 @@
 		value: true
 	});
 
-	var _eventSeed = __webpack_require__(299);
+	var _eventSeed = __webpack_require__(300);
 
 	var _eventSeed2 = _interopRequireDefault(_eventSeed);
 
@@ -31088,7 +31137,7 @@
 	exports.default = events;
 
 /***/ },
-/* 299 */
+/* 300 */
 /***/ function(module, exports) {
 
 	'use strict';

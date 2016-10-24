@@ -11,7 +11,7 @@ class EventItem extends Component {
     return (
       <div>
         <div>
-          {this.props.event.name}
+          {this.props.event.title}
         </div>
         <button>
           <Link to={detailsUrl}>

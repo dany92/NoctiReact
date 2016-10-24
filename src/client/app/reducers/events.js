@@ -1,14 +1,10 @@
 import dummyEvents from '../../../../seed/event-seed';
 
-const initialState = {
-	events: []
-};
-
-const events = (state = initialState.events, action) => {
+const events = (state = [], action) => {
 	switch(action.type){
 		case "GET_EVENTS":
 			console.log("in reducer", action.payload);
-			return Object.assign({}, state, action.payload)
+			return state.concat(action.payload.events);
 		default:
 			return state
 	}

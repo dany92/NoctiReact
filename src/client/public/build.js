@@ -30883,7 +30883,7 @@
 	        _react2.default.createElement(
 	          "div",
 	          null,
-	          this.props.event.name
+	          this.props.event.title
 	        ),
 	        _react2.default.createElement(
 	          "button",
@@ -31072,18 +31072,14 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var initialState = {
-		events: []
-	};
-
 	var events = function events() {
-		var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState.events;
+		var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 		var action = arguments[1];
 
 		switch (action.type) {
 			case "GET_EVENTS":
 				console.log("in reducer", action.payload);
-				return Object.assign({}, state, action.payload);
+				return state.concat(action.payload.events);
 			default:
 				return state;
 		}

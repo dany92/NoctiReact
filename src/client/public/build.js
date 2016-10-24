@@ -84,7 +84,11 @@
 
 	var _Event2 = _interopRequireDefault(_Event);
 
-	var _reducers = __webpack_require__(296);
+	var _EventDetail = __webpack_require__(296);
+
+	var _EventDetail2 = _interopRequireDefault(_EventDetail);
+
+	var _reducers = __webpack_require__(297);
 
 	var _reducers2 = _interopRequireDefault(_reducers);
 
@@ -111,7 +115,8 @@
 					_react2.default.createElement(_reactRouter.IndexRoute, { component: _Home2.default }),
 					_react2.default.createElement(_reactRouter.Route, { path: "/venues", component: _Venue2.default }),
 					_react2.default.createElement(_reactRouter.Route, { path: "/venues/:id", component: _VenueDetail2.default }),
-					_react2.default.createElement(_reactRouter.Route, { path: "/events", component: _Event2.default })
+					_react2.default.createElement(_reactRouter.Route, { path: "/events", component: _Event2.default }),
+					_react2.default.createElement(_reactRouter.Route, { path: "/events/:id", component: _EventDetail2.default })
 				)
 			)
 		), app);
@@ -30465,7 +30470,7 @@
 	};
 
 	var fetchAll = exports.fetchAll = function fetchAll() {
-		console.log("fetching data");
+		console.log("fetching venues data");
 		return function (dispatch, getState) {
 			var currentVenues = getState().venues;
 			if (currentVenues.length > 0) {
@@ -30745,7 +30750,6 @@
 		_createClass(Event, [{
 			key: 'componentDidMount',
 			value: function componentDidMount() {
-				console.log("fetching data");
 				this.props.onMount();
 			}
 		}, {
@@ -30812,7 +30816,7 @@
 	};
 
 	var fetchAll = exports.fetchAll = function fetchAll() {
-		console.log("fetching data");
+		console.log("fetching events data");
 		return function (dispatch, getState) {
 			var currentEvents = getState().events;
 			if (currentEvents.length > 0) {
@@ -30970,13 +30974,103 @@
 		value: true
 	});
 
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(250);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var EventDetail = function (_Component) {
+		_inherits(EventDetail, _Component);
+
+		function EventDetail(props) {
+			_classCallCheck(this, EventDetail);
+
+			return _possibleConstructorReturn(this, (EventDetail.__proto__ || Object.getPrototypeOf(EventDetail)).call(this, props));
+		}
+
+		_createClass(EventDetail, [{
+			key: 'render',
+			value: function render() {
+				var id = this.props.params.id;
+
+				var findEvent = function findEvent(event) {
+					return event.id === Number(id);
+				};
+				var event = this.props.events.find(findEvent);
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'h1',
+						null,
+						' This is EventDetail! '
+					),
+					'Event Id: ',
+					id,
+					_react2.default.createElement(
+						'ol',
+						null,
+						_react2.default.createElement(
+							'li',
+							null,
+							event.title
+						),
+						_react2.default.createElement(
+							'li',
+							null,
+							event.description
+						),
+						_react2.default.createElement(
+							'li',
+							null,
+							event.start_date
+						)
+					)
+				);
+			}
+		}]);
+
+		return EventDetail;
+	}(_react.Component);
+
+	EventDetail.propTypes = {
+		events: _react.PropTypes.array
+	};
+
+	var mapStateToProps = function mapStateToProps(state) {
+		return { events: state.events };
+	};
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(EventDetail);
+
+/***/ },
+/* 297 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
 	var _redux = __webpack_require__(235);
 
-	var _venues = __webpack_require__(297);
+	var _venues = __webpack_require__(298);
 
 	var _venues2 = _interopRequireDefault(_venues);
 
-	var _events = __webpack_require__(298);
+	var _events = __webpack_require__(299);
 
 	var _events2 = _interopRequireDefault(_events);
 
@@ -30989,7 +31083,7 @@
 	exports.default = rootReducer;
 
 /***/ },
-/* 297 */
+/* 298 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -31012,7 +31106,7 @@
 	exports.default = venues;
 
 /***/ },
-/* 298 */
+/* 299 */
 /***/ function(module, exports) {
 
 	"use strict";

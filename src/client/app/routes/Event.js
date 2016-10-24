@@ -12,7 +12,6 @@ class Event extends Component {
 		}
 	}
 	componentDidMount(){
-		console.log("fetching data");
 		this.props.onMount();
 	}
 

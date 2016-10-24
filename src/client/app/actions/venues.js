@@ -7,7 +7,7 @@ const _getAllVenues = (venues=[]) => (
 	});
 
 export const fetchAll = () => {
-	console.log("fetching data");
+	console.log("fetching venues data");
 	return (dispatch, getState) => {
 		const currentVenues = getState().venues;
 		if(currentVenues.length > 0){

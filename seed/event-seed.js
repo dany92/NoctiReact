@@ -1,5 +1,6 @@
 let Event = [
     {
+        id: 1,
         title: 'Ladies Night',
         description: 'The night is for ladies',
         start_date: '2016-03-02 23:30',
@@ -7,6 +8,7 @@ let Event = [
         businessId: 1
     },
     {
+        id: 2,
         title: 'Hot Summer Night',
         description: 'Make your summer night memorable',
         start_date: '2016-08-29 23:30',
@@ -14,6 +16,7 @@ let Event = [
         businessId: 1
     },
     {
+        id: 3,
         title: 'Alpha Di Mixer',
         description: 'Best Frat Party of the Year',
         start_date: '2016-05-11 22:00',
@@ -21,6 +24,7 @@ let Event = [
         businessId: 1
     },
     {
+        id: 4,
         title: 'Valentine Special',
         description: "Couples, have night of fun. Singles, it's about time to meet someone",
         start_date: '2016-02-14 23:00',
@@ -28,6 +32,7 @@ let Event = [
         businessId: 2
     },
     {
+        id: 5,
         title: 'Christmas Event',
         description: 'Party of the Year. Join us on White Christmas',
         start_date: '2016-12-24 20:00',

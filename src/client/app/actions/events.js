@@ -7,7 +7,7 @@ const _getAllEvents = (events=[]) => (
 	});
 
 export const fetchAll = () => {
-	console.log("fetching data");
+	console.log("fetching events data");
 	return (dispatch, getState) => {
 		const currentEvents = getState().events;
 		if(currentEvents.length > 0){

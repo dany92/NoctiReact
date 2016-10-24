@@ -9,6 +9,7 @@ import Layout from "./components/Layout";
 import Home from "./routes/Home";
 import Venue from "./routes/Venue";
 import VenueDetail from "./routes/VenueDetail";
+import Event from "./routes/Event";
 import rootReducer from './reducers';
 
 const app = document.getElementById('app');
@@ -17,7 +18,7 @@ let initState = {
 	venues: []
 };
 
-const store = createStore(rootReducer, initState);
+const store = createStore(rootReducer, initState, applyMiddleware(thunk));
 
 const render = () => {
 	ReactDOM.render(
@@ -27,6 +28,7 @@ const render = () => {
 					<IndexRoute component={ Home }></IndexRoute>
 					<Route path="/venues" component={ Venue }></Route>
 					<Route path="/venues/:id" component={ VenueDetail }></Route>
+					<Route path="/events" component={ Event }></Route>
 				</Route>
 			</Router>
 		</Provider> 

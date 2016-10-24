@@ -3,7 +3,9 @@ import { createServer } from 'http';
 import path from 'path';
 import bodyParser from 'body-parser';
 
-import Venue from './seed/venue-seed'
+import Venue from './seed/venue-seed';
+import Event from './seed/event-seed';
+
 
 let app = Express();
 let server = createServer();
@@ -19,6 +21,9 @@ app.use(Express.static(npmPath));
 app.use(Express.static(publicPath));
 
 app.use('/api/venues', (req,res,next) => res.send(Venue));
+
+app.use('/api/events', (req,res,next) =>
+	res.send(Event));
 
 app.use('/', function(req,res,next){
 	res.sendFile(path.join(__dirname,'./src/client/public/index.html'));

@@ -1,5 +1,3 @@
-import dummyVenues from '../../../../seed/venue-seed';
-
 const venues = (state = [], action) => {
 	switch(action.type){
 		case "GET_VENUES":

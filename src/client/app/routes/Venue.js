@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { fetchAll } from '../actions/venues';
 
-import VenueList from '../components/VenueList'
+import VenueList from '../container/VenueList'
 
 class Venue extends Component {
 	constructor(props){

@@ -30443,7 +30443,7 @@
 /* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -30453,8 +30453,6 @@
 	var _axios = __webpack_require__(262);
 
 	var _axios2 = _interopRequireDefault(_axios);
-
-	var _redux = __webpack_require__(235);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30978,7 +30976,7 @@
 
 	var _venues2 = _interopRequireDefault(_venues);
 
-	var _events = __webpack_require__(299);
+	var _events = __webpack_require__(298);
 
 	var _events2 = _interopRequireDefault(_events);
 
@@ -30992,20 +30990,13 @@
 
 /***/ },
 /* 297 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-
-	var _venueSeed = __webpack_require__(298);
-
-	var _venueSeed2 = _interopRequireDefault(_venueSeed);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 	var venues = function venues() {
 		var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 		var action = arguments[1];
@@ -31024,118 +31015,17 @@
 /* 298 */
 /***/ function(module, exports) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	var Venue = [{
-	    id: 1,
-	    name: 'Lil Branch',
-	    address: '22 7th Ave S, New York, NY 10014',
-	    lat: 40.736040,
-	    long: -74.001724,
-	    category: 'bar',
-	    email: 'whatever@gmail.com',
-	    phone: '203-234-6633',
-	    website: 'www.lilbranch.com'
-	}, {
-	    id: 2,
-	    name: 'Alcohol is my life',
-	    address: '45 10th Ave S, New York, NY 10014',
-	    lat: 40.808364,
-	    long: -73.947161,
-	    category: 'bar',
-	    email: 'drinkaway@gmail.com',
-	    phone: '324-345-7777',
-	    website: 'www.yay.com'
-	}, {
-	    id: 3,
-	    name: 'Stony Rock',
-	    address: '602 Madison Ave, New York, NY 10014',
-	    lat: 40.739937,
-	    long: -74.004932,
-	    category: 'bar',
-	    email: 'yolo@gmail.com',
-	    phone: '535-674-8457',
-	    website: 'www.namingishard.com'
-	}, {
-	    id: 4,
-	    name: 'Envi',
-	    address: '160 33th, New York, NY 10014',
-	    lat: 40.72337,
-	    long: -74.002432,
-	    category: 'nightclub',
-	    email: 'comeweekend@gmail.com',
-	    phone: '346-466-4667',
-	    website: 'www.weekendforever.com'
-	}, {
-	    id: 5,
-	    name: 'Tipsy',
-	    address: '326 Spring St, New York, NY 10013',
-	    lat: 40.76337,
-	    long: -74.001432,
-	    category: 'nightclub',
-	    email: 'watchout@gmail.com',
-	    phone: '758-344-0940',
-	    website: 'www.onlyslightlytipsy.com'
-	}, {
-	    id: 6,
-	    name: 'The Legend',
-	    address: '2533 Fall Hill Dr, San Francisco, CA 94133',
-	    lat: 37.803722,
-	    long: -122.415576,
-	    category: 'nightclub',
-	    email: 'dawn@gmail.com',
-	    phone: '111-222-0357',
-	    website: 'www.levelup.com'
-	}, {
-	    id: 7,
-	    name: 'Rooftop',
-	    address: '86 Cringe St, New York, NY 10013',
-	    lat: 40.6782,
-	    long: -73.8442,
-	    category: 'nightclub',
-	    email: 'dawn@gmail.com',
-	    phone: '155-010-4755',
-	    website: 'www.onthetop.com'
-	}, {
-	    id: 8,
-	    name: 'The Alley',
-	    address: '729 Alley St, New York, NY 10034',
-	    lat: 40.6601,
-	    long: -73.7589,
-	    category: 'nightclub',
-	    email: 'alley@gmail.com',
-	    phone: '243-864-4996',
-	    website: 'www.thealley.com'
-	}];
-
-	exports.default = Venue;
-
-/***/ },
-/* 299 */
-/***/ function(module, exports, __webpack_require__) {
-
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-
-	var _eventSeed = __webpack_require__(300);
-
-	var _eventSeed2 = _interopRequireDefault(_eventSeed);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 	var events = function events() {
 		var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 		var action = arguments[1];
 
 		switch (action.type) {
 			case "GET_EVENTS":
-				console.log("in reducer", action.payload);
 				return state.concat(action.payload.events);
 			default:
 				return state;
@@ -31143,49 +31033,6 @@
 	};
 
 	exports.default = events;
-
-/***/ },
-/* 300 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	var Event = [{
-	    title: 'Ladies Night',
-	    description: 'The night is for ladies',
-	    start_date: '2016-03-02 23:30',
-	    end_date: '2016-03-03 4:30',
-	    businessId: 1
-	}, {
-	    title: 'Hot Summer Night',
-	    description: 'Make your summer night memorable',
-	    start_date: '2016-08-29 23:30',
-	    end_date: '2016-08-30 4:30',
-	    businessId: 1
-	}, {
-	    title: 'Alpha Di Mixer',
-	    description: 'Best Frat Party of the Year',
-	    start_date: '2016-05-11 22:00',
-	    end_date: '2016-05-12 2:00',
-	    businessId: 1
-	}, {
-	    title: 'Valentine Special',
-	    description: "Couples, have night of fun. Singles, it's about time to meet someone",
-	    start_date: '2016-02-14 23:00',
-	    end_date: '2016-02-15 6:00',
-	    businessId: 2
-	}, {
-	    title: 'Christmas Event',
-	    description: 'Party of the Year. Join us on White Christmas',
-	    start_date: '2016-12-24 20:00',
-	    end_date: '2016-12-25 4:00',
-	    businessId: 3
-	}];
-
-	exports.default = Event;
 
 /***/ }
 /******/ ]);

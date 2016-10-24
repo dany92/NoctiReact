@@ -31076,9 +31076,13 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var rootReducer = (0, _redux.combineReducers)({
+	var appReducer = (0, _redux.combineReducers)({
 		venues: _venues2.default, events: _events2.default
 	});
+
+	var rootReducer = function rootReducer(state, action) {
+		return appReducer(state, action);
+	};
 
 	exports.default = rootReducer;
 

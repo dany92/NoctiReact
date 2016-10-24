@@ -9,12 +9,17 @@ const _getAllVenues = (venues) => (
 
 export const fetchAll = () => {
 	console.log("fetching data");
-	return dispatch => {
-		axios.get("/api/venues").
-		then(res => {
-			console.log("dispatch", dispatch);
-			dispatch(_getAllVenues(res.data));
+	return (dispatch, getState) => {
+		const currentVenues = getState().venues;
+		if(currentVenues.length > 0){
+			dispatch(_getAllVenues([]));
+		}else {
+			axios.get("/api/venues").
+			then(res => {
+				console.log("dispatch", dispatch);
+				dispatch(_getAllVenues(res.data));
 
-		})
+			})
+		}
 	}
 }

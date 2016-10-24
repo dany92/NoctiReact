@@ -30458,7 +30458,8 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var _getAllVenues = function _getAllVenues(venues) {
+	var _getAllVenues = function _getAllVenues() {
+		var venues = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 		return {
 			type: "GET_VENUES",
 			payload: { venues: venues }
@@ -30470,7 +30471,7 @@
 		return function (dispatch, getState) {
 			var currentVenues = getState().venues;
 			if (currentVenues.length > 0) {
-				dispatch(_getAllVenues([]));
+				dispatch(_getAllVenues());
 			} else {
 				_axios2.default.get("/api/venues").then(function (res) {
 					console.log("dispatch", dispatch);

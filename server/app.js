@@ -1,4 +1,5 @@
 import { createServer } from 'http';
+import chalk from 'chalk';
 import db from './db'
 import runSeeds from '../seed';
 
@@ -9,11 +10,11 @@ const startApp = (app) => {
 		return runSeeds();
 	})
 	.then(() =>{
-		console.log("PostreSQL database connected: noctireact");
+		console.log(chalk.yellow("PostreSQL database connected: noctireact"));
 		const server = createServer();
 		server.on('request', app);
 		server.listen(PORT, () => {
-			console.log(`server listening on port: ${PORT}`);
+			console.log(chalk.blue(`server listening on port: ${PORT}`));
 		})
 	})
 };

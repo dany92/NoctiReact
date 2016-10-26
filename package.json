@@ -4,7 +4,7 @@
   "description": "Nightlife app built with React",
   "main": "webpack.config.js",
   "scripts": {
-    "start": "./node_modules/babel-cli/bin/babel-node.js app.js",
+    "start": "./node_modules/babel-cli/bin/babel-node.js server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -27,12 +27,14 @@
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "path": "^0.12.7",
+    "pg": "^6.1.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-redux": "^4.4.5",
     "react-router": "^2.8.1",
     "redux": "^3.6.0",
     "redux-thunk": "^2.1.0",
+    "sequelize": "^3.24.6",
     "webpack": "^1.13.2"
   }
 }

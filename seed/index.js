@@ -7,7 +7,7 @@ const seedPromises = [venues, events];
 const seedDB = () => {
 	return Promise.all(seedPromises.map(seed => seed.call(this))) 
 	.then(() => {
-		console.log(chalk.red("seed was successful"));
+		console.log(chalk.magenta("seed was successful"));
 	})
 }
 

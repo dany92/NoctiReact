@@ -4,4 +4,4 @@ import Sequelize from 'sequelize';
 import env from '../env'
 
 const db = new Sequelize(env.DATABASE_URI, { logging: env.LOGGING });
-module.exports = db;
+export default db;

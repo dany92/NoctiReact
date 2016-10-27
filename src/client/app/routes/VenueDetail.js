@@ -9,8 +9,7 @@ class VenueDetail extends Component {
 
 	render() {
 		const { id } = this.props.params;
-		let findVenue = (venue) => venue.id === Number(id);
-		const venue = this.props.venues.find(findVenue);
+
 		return (
 			<div>
 		  		<h1> This is VenueDetail! </h1>
@@ -25,11 +24,11 @@ class VenueDetail extends Component {
 }
 
 VenueDetail.propTypes = {
-  venues: PropTypes.array
+  venue: PropTypes.object
 };
 
 let mapStateToProps = (state) => {
-  return { venues: state.venues }
+  return { venue: state.venues.venueList.venues }
 }
 
 export default connect(mapStateToProps)(VenueDetail);

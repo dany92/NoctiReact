@@ -1,18 +1,24 @@
 import React, { Component, PropTypes } from "react";
 import { connect } from 'react-redux';
 
-import VenueItem from '../../components/VenueItem'
+import VenueItem from '../../components/VenueItem';
+import { fetchVenues, fetchVenuesSuccess, fetchVenuesFailure } from '../../actions/venues';
 
 class VenueList extends Component {
   constructor(props) {
     super(props);
   }
 
+  componentWillMount() {
+    this.props.fetchVenues();
+  }
+
   render() {
+    const { venues, loading, error } = this.props.venuesList;
     return (
       <div>
-        { this.props.venues.map((venue, index) => 
-            <VenueItem key={index} venue={venue} /> 
+        { venues.map((venue) => 
+            <VenueItem key={venue.id} venue={venue} /> 
         )}
       </div>
     );
@@ -20,10 +26,24 @@ class VenueList extends Component {
 }
 
 VenueList.propTypes = {
-  venues: PropTypes.array
+  venuesList: PropTypes.object
 };
 
-let mapStateToProps = (state) => {
-  return { venues: state.venues }
+const mapStateToProps = (state) => {
+  console.log(state);
+  return { venuesList: state.venues.venuesList }
 }
-export default connect(mapStateToProps)(VenueList);
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchVenues: () => {
+      dispatch(fetchVenues())
+      .then((res) => !res.error ? 
+        dispatch(fetchVenuesSuccess(res.payload)) : 
+        dispatch(fetchVenuesFailure(res.payload))
+      )
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(VenueList);

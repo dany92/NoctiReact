@@ -1,22 +1,28 @@
 import axios from 'axios';
 
-const _getAllVenues = (venues=[]) => (
-	{
-		type: "GET_VENUES", 
-		payload: { venues }
-	});
+export const FETCH_VENUES = 'FETCH_VENUES';
+export const FETCH_VENUES_SUCCESS = 'FETCH_VENUES_SUCCESS';
+export const FETCH_VENUES_ERROR = 'FETCH_VENUES_ERROR';
 
-export const fetchAll = () => {
-	console.log("fetching venues data");
-	return (dispatch, getState) => {
-		const currentVenues = getState().venues;
-		if(currentVenues.length > 0){
-			dispatch(_getAllVenues());
-		}else {
-			axios.get("/api/venues").
-			then(res => {
-				dispatch(_getAllVenues(res.data));
-			})
-		}
-	}
+export const fetchVenues = () => {
+	const request = axios.get("/api/venues");
+	return {
+		type: FETCH_VENUES,
+		payload: request,
+	};
 }
+
+export const fetchVenuesSuccess = (venues) => {
+	return {
+		type: FETCH_VENUES_SUCCESS,
+		payload: venues,
+	};
+}
+
+export const fetchVenuesFailure = (error) => {
+	return {
+		type: FETCH_VENUES_ERROR,
+		payload: error,
+	};
+}
+

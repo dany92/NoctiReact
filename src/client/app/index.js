@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { Router, Route, IndexRoute, browserHistory } from "react-router";
 import { createStore, applyMiddleware } from 'redux';
 import { connect, Provider } from 'react-redux';
+import promise from 'redux-promise';
 import thunk from 'redux-thunk';
 
 import Layout from "./components/Layout";
@@ -15,11 +16,11 @@ import rootReducer from './reducers';
 
 const app = document.getElementById('app');
 
-let initState = {
-	venues: []
-};
+const initState = {};
 
-const store = createStore(rootReducer, initState, applyMiddleware(thunk));
+const middleware = [promise, thunk];
+
+const store = createStore(rootReducer, initState, applyMiddleware(...middleware));
 
 const render = () => {
 	ReactDOM.render(

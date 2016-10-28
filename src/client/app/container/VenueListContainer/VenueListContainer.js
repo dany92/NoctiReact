@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from "react";
 import { connect } from 'react-redux';
 
-import VenueItem from '../../components/VenueItem';
+import VenueList from '../../components/VenueList';
 import { fetchVenues, fetchVenuesSuccess, fetchVenuesFailure } from '../../actions/venues';
 
-class VenueList extends Component {
+class VenueListContainer extends Component {
   constructor(props) {
     super(props);
   }
@@ -16,16 +16,12 @@ class VenueList extends Component {
   render() {
     const { venues, loading, error } = this.props.venuesList;
     return (
-      <div>
-        { venues.map((venue) => 
-            <VenueItem key={venue.id} venue={venue} /> 
-        )}
-      </div>
+      <VenueList venues={venues} />
     );
   }
 }
 
-VenueList.propTypes = {
+VenueListContainer.propTypes = {
   venuesList: PropTypes.object
 };
 
@@ -46,4 +42,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(VenueList);
+export default connect(mapStateToProps, mapDispatchToProps)(VenueListContainer);

@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 
-import VenueList from '../container/VenueList'
+import VenueListContainer from '../container/VenueListContainer';
 
 class Venue extends Component {
 	constructor(props){
@@ -13,7 +13,7 @@ class Venue extends Component {
 		return (
 			<div>
 		  		<h1> This is Venues page </h1>
-		  		<VenueList />
+		  		<VenueListContainer />
 		  	</div>
 		);
 	}

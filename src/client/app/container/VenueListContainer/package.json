@@ -1,0 +1,6 @@
+{
+  "name": "VenueListContainer",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./VenueListContainer.js"
+}

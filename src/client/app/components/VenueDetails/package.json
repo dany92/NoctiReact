@@ -1,0 +1,6 @@
+{
+  "name": "VenueDetails",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./VenueDetails.js"
+}

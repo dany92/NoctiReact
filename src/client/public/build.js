@@ -80,19 +80,19 @@
 
 	var _Venue2 = _interopRequireDefault(_Venue);
 
-	var _VenueDetail = __webpack_require__(298);
+	var _VenueDetails = __webpack_require__(299);
 
-	var _VenueDetail2 = _interopRequireDefault(_VenueDetail);
+	var _VenueDetails2 = _interopRequireDefault(_VenueDetails);
 
-	var _Event = __webpack_require__(299);
+	var _Event = __webpack_require__(302);
 
 	var _Event2 = _interopRequireDefault(_Event);
 
-	var _EventDetail = __webpack_require__(303);
+	var _EventDetail = __webpack_require__(306);
 
 	var _EventDetail2 = _interopRequireDefault(_EventDetail);
 
-	var _reducers = __webpack_require__(304);
+	var _reducers = __webpack_require__(307);
 
 	var _reducers2 = _interopRequireDefault(_reducers);
 
@@ -118,7 +118,7 @@
 					{ path: "/", component: _Layout2.default },
 					_react2.default.createElement(_reactRouter.IndexRoute, { component: _Home2.default }),
 					_react2.default.createElement(_reactRouter.Route, { path: "/venues", component: _Venue2.default }),
-					_react2.default.createElement(_reactRouter.Route, { path: "/venues/:id", component: _VenueDetail2.default }),
+					_react2.default.createElement(_reactRouter.Route, { path: "/venues/:id", component: _VenueDetails2.default }),
 					_react2.default.createElement(_reactRouter.Route, { path: "/events", component: _Event2.default }),
 					_react2.default.createElement(_reactRouter.Route, { path: "/events/:id", component: _EventDetail2.default })
 				)
@@ -31167,9 +31167,9 @@
 
 	var _reactRedux = __webpack_require__(250);
 
-	var _VenueList = __webpack_require__(295);
+	var _VenueListContainer = __webpack_require__(295);
 
-	var _VenueList2 = _interopRequireDefault(_VenueList);
+	var _VenueListContainer2 = _interopRequireDefault(_VenueListContainer);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31199,7 +31199,7 @@
 						null,
 						' This is Venues page '
 					),
-					_react2.default.createElement(_VenueList2.default, null)
+					_react2.default.createElement(_VenueListContainer2.default, null)
 				);
 			}
 		}]);
@@ -31227,11 +31227,89 @@
 
 	var _reactRedux = __webpack_require__(250);
 
-	var _VenueItem = __webpack_require__(296);
+	var _VenueList = __webpack_require__(296);
+
+	var _VenueList2 = _interopRequireDefault(_VenueList);
+
+	var _venues = __webpack_require__(298);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var VenueListContainer = function (_Component) {
+	  _inherits(VenueListContainer, _Component);
+
+	  function VenueListContainer(props) {
+	    _classCallCheck(this, VenueListContainer);
+
+	    return _possibleConstructorReturn(this, (VenueListContainer.__proto__ || Object.getPrototypeOf(VenueListContainer)).call(this, props));
+	  }
+
+	  _createClass(VenueListContainer, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.props.fetchVenues();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props$venuesList = this.props.venuesList;
+	      var venues = _props$venuesList.venues;
+	      var loading = _props$venuesList.loading;
+	      var error = _props$venuesList.error;
+
+	      return _react2.default.createElement(_VenueList2.default, { venues: venues });
+	    }
+	  }]);
+
+	  return VenueListContainer;
+	}(_react.Component);
+
+	VenueListContainer.propTypes = {
+	  venuesList: _react.PropTypes.object
+	};
+
+	var mapStateToProps = function mapStateToProps(state) {
+	  console.log(state);
+	  return { venuesList: state.venues.venuesList };
+	};
+
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    fetchVenues: function fetchVenues() {
+	      dispatch((0, _venues.fetchVenues)()).then(function (res) {
+	        return !res.error ? dispatch((0, _venues.fetchVenuesSuccess)(res.payload)) : dispatch((0, _venues.fetchVenuesFailure)(res.payload));
+	      });
+	    }
+	  };
+	};
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(VenueListContainer);
+
+/***/ },
+/* 296 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _VenueItem = __webpack_require__(297);
 
 	var _VenueItem2 = _interopRequireDefault(_VenueItem);
-
-	var _venues = __webpack_require__(297);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31251,22 +31329,17 @@
 	  }
 
 	  _createClass(VenueList, [{
-	    key: 'componentWillMount',
+	    key: "componentWillMount",
 	    value: function componentWillMount() {
-	      this.props.fetchVenues();
+	      this.props.venues;
 	    }
 	  }, {
-	    key: 'render',
+	    key: "render",
 	    value: function render() {
-	      var _props$venuesList = this.props.venuesList;
-	      var venues = _props$venuesList.venues;
-	      var loading = _props$venuesList.loading;
-	      var error = _props$venuesList.error;
-
 	      return _react2.default.createElement(
-	        'div',
+	        "div",
 	        null,
-	        venues.map(function (venue) {
+	        this.props.venues.map(function (venue) {
 	          return _react2.default.createElement(_VenueItem2.default, { key: venue.id, venue: venue });
 	        })
 	      );
@@ -31277,28 +31350,13 @@
 	}(_react.Component);
 
 	VenueList.propTypes = {
-	  venuesList: _react.PropTypes.object
+	  venues: _react.PropTypes.array
 	};
 
-	var mapStateToProps = function mapStateToProps(state) {
-	  console.log(state);
-	  return { venuesList: state.venues.venuesList };
-	};
-
-	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return {
-	    fetchVenues: function fetchVenues() {
-	      dispatch((0, _venues.fetchVenues)()).then(function (res) {
-	        return !res.error ? dispatch((0, _venues.fetchVenuesSuccess)(res.payload)) : dispatch((0, _venues.fetchVenuesFailure)(res.payload));
-	      });
-	    }
-	  };
-	};
-
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(VenueList);
+	exports.default = VenueList;
 
 /***/ },
-/* 296 */
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31367,7 +31425,7 @@
 	exports.default = VenueItem;
 
 /***/ },
-/* 297 */
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31375,7 +31433,7 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.fetchVenuesFailure = exports.fetchVenuesSuccess = exports.fetchVenues = exports.FETCH_VENUES_ERROR = exports.FETCH_VENUES_SUCCESS = exports.FETCH_VENUES = undefined;
+	exports.fetchOneVenueFailure = exports.fetchOneVenueSuccess = exports.fetchOneVenue = exports.fetchVenuesFailure = exports.fetchVenuesSuccess = exports.fetchVenues = exports.FETCH_ONE_VENUE_ERROR = exports.FETCH_ONE_VENUE_SUCCESS = exports.FETCH_ONE_VENUE = exports.FETCH_VENUES_ERROR = exports.FETCH_VENUES_SUCCESS = exports.FETCH_VENUES = undefined;
 
 	var _axios = __webpack_require__(269);
 
@@ -31386,6 +31444,10 @@
 	var FETCH_VENUES = exports.FETCH_VENUES = 'FETCH_VENUES';
 	var FETCH_VENUES_SUCCESS = exports.FETCH_VENUES_SUCCESS = 'FETCH_VENUES_SUCCESS';
 	var FETCH_VENUES_ERROR = exports.FETCH_VENUES_ERROR = 'FETCH_VENUES_ERROR';
+
+	var FETCH_ONE_VENUE = exports.FETCH_ONE_VENUE = 'FETCH_ONE_VENUE';
+	var FETCH_ONE_VENUE_SUCCESS = exports.FETCH_ONE_VENUE_SUCCESS = 'FETCH_ONE_VENUE_SUCCESS';
+	var FETCH_ONE_VENUE_ERROR = exports.FETCH_ONE_VENUE_ERROR = 'FETCH_ONE_VENUE_ERROR';
 
 	var fetchVenues = exports.fetchVenues = function fetchVenues() {
 		var request = _axios2.default.get("/api/venues");
@@ -31409,83 +31471,27 @@
 		};
 	};
 
-/***/ },
-/* 298 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRedux = __webpack_require__(250);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var VenueDetail = function (_Component) {
-		_inherits(VenueDetail, _Component);
-
-		function VenueDetail(props) {
-			_classCallCheck(this, VenueDetail);
-
-			return _possibleConstructorReturn(this, (VenueDetail.__proto__ || Object.getPrototypeOf(VenueDetail)).call(this, props));
-		}
-
-		_createClass(VenueDetail, [{
-			key: 'render',
-			value: function render() {
-				var id = this.props.params.id;
-
-
-				return _react2.default.createElement(
-					'div',
-					null,
-					_react2.default.createElement(
-						'h1',
-						null,
-						' This is VenueDetail! '
-					),
-					'Venue Id: ',
-					id,
-					_react2.default.createElement(
-						'ol',
-						null,
-						_react2.default.createElement(
-							'li',
-							null,
-							this.props.venue.name
-						),
-						_react2.default.createElement(
-							'li',
-							null,
-							this.props.venue.address
-						)
-					)
-				);
-			}
-		}]);
-
-		return VenueDetail;
-	}(_react.Component);
-
-	VenueDetail.propTypes = {
-		venue: _react.PropTypes.object
+	var fetchOneVenue = exports.fetchOneVenue = function fetchOneVenue(id) {
+		var request = _axios2.default.get('/api/venues/' + id);
+		return {
+			type: FETCH_ONE_VENUE,
+			payload: request
+		};
 	};
 
-	exports.default = VenueDetail;
+	var fetchOneVenueSuccess = exports.fetchOneVenueSuccess = function fetchOneVenueSuccess(venue) {
+		return {
+			type: FETCH_ONE_VENUE_SUCCESS,
+			payload: venue
+		};
+	};
+
+	var fetchOneVenueFailure = exports.fetchOneVenueFailure = function fetchOneVenueFailure(error) {
+		return {
+			type: FETCH_ONE_VENUE_ERROR,
+			payload: error
+		};
+	};
 
 /***/ },
 /* 299 */
@@ -31503,11 +31509,214 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _axios = __webpack_require__(269);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
 	var _reactRedux = __webpack_require__(250);
 
-	var _events = __webpack_require__(300);
+	var _VenueDetailsContainer = __webpack_require__(300);
 
-	var _EventList = __webpack_require__(301);
+	var _VenueDetailsContainer2 = _interopRequireDefault(_VenueDetailsContainer);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var VenueDetails = function (_Component) {
+		_inherits(VenueDetails, _Component);
+
+		function VenueDetails(props) {
+			_classCallCheck(this, VenueDetails);
+
+			return _possibleConstructorReturn(this, (VenueDetails.__proto__ || Object.getPrototypeOf(VenueDetails)).call(this, props));
+		}
+
+		_createClass(VenueDetails, [{
+			key: 'render',
+			value: function render() {
+				var id = this.props.params.id;
+
+				console.log("in routes", id);
+
+				return _react2.default.createElement(_VenueDetailsContainer2.default, { id: id });
+			}
+		}]);
+
+		return VenueDetails;
+	}(_react.Component);
+
+	exports.default = VenueDetails;
+
+/***/ },
+/* 300 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(250);
+
+	var _VenueDetails = __webpack_require__(301);
+
+	var _VenueDetails2 = _interopRequireDefault(_VenueDetails);
+
+	var _venues = __webpack_require__(298);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var VenueDetailsContainer = function (_Component) {
+	  _inherits(VenueDetailsContainer, _Component);
+
+	  function VenueDetailsContainer(props) {
+	    _classCallCheck(this, VenueDetailsContainer);
+
+	    return _possibleConstructorReturn(this, (VenueDetailsContainer.__proto__ || Object.getPrototypeOf(VenueDetailsContainer)).call(this, props));
+	  }
+
+	  _createClass(VenueDetailsContainer, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.props.fetchOneVenue(this.props.id);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props$currentVenue = this.props.currentVenue;
+	      var venue = _props$currentVenue.venue;
+	      var loading = _props$currentVenue.loading;
+	      var error = _props$currentVenue.error;
+
+	      return _react2.default.createElement(_VenueDetails2.default, { venue: venue });
+	    }
+	  }]);
+
+	  return VenueDetailsContainer;
+	}(_react.Component);
+
+	VenueDetailsContainer.propTypes = {
+	  currentVenue: _react.PropTypes.object
+	};
+
+	var mapStateToProps = function mapStateToProps(state) {
+	  console.log(state);
+	  return { currentVenue: state.venues.currentVenue };
+	};
+
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    fetchOneVenue: function fetchOneVenue(id) {
+	      dispatch((0, _venues.fetchOneVenue)(id)).then(function (res) {
+	        return !res.error ? dispatch((0, _venues.fetchOneVenueSuccess)(res.payload)) : dispatch((0, _venues.fetchOneVenueFailure)(res.payload));
+	      });
+	    }
+	  };
+	};
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(VenueDetailsContainer);
+
+/***/ },
+/* 301 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(172);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var VenueDetails = function (_Component) {
+	  _inherits(VenueDetails, _Component);
+
+	  function VenueDetails(props) {
+	    _classCallCheck(this, VenueDetails);
+
+	    return _possibleConstructorReturn(this, (VenueDetails.__proto__ || Object.getPrototypeOf(VenueDetails)).call(this, props));
+	  }
+
+	  _createClass(VenueDetails, [{
+	    key: "render",
+	    value: function render() {
+	      console.log("param in component", this.props.params);
+	      return _react2.default.createElement(
+	        "div",
+	        null,
+	        _react2.default.createElement(
+	          "div",
+	          null,
+	          this.props.venue.name,
+	          this.props.venue.address,
+	          this.props.venue.email
+	        )
+	      );
+	    }
+	  }]);
+
+	  return VenueDetails;
+	}(_react.Component);
+
+	VenueDetails.propTypes = {
+	  venue: _react.PropTypes.object
+	};
+
+	exports.default = VenueDetails;
+
+/***/ },
+/* 302 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(250);
+
+	var _events = __webpack_require__(303);
+
+	var _EventList = __webpack_require__(304);
 
 	var _EventList2 = _interopRequireDefault(_EventList);
 
@@ -31577,7 +31786,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Event);
 
 /***/ },
-/* 300 */
+/* 303 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31616,7 +31825,7 @@
 	};
 
 /***/ },
-/* 301 */
+/* 304 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31633,7 +31842,7 @@
 
 	var _reactRedux = __webpack_require__(250);
 
-	var _EventItem = __webpack_require__(302);
+	var _EventItem = __webpack_require__(305);
 
 	var _EventItem2 = _interopRequireDefault(_EventItem);
 
@@ -31682,7 +31891,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(EventList);
 
 /***/ },
-/* 302 */
+/* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31751,7 +31960,7 @@
 	exports.default = EventItem;
 
 /***/ },
-/* 303 */
+/* 306 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31841,7 +32050,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(EventDetail);
 
 /***/ },
-/* 304 */
+/* 307 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31852,11 +32061,11 @@
 
 	var _redux = __webpack_require__(235);
 
-	var _venues = __webpack_require__(305);
+	var _venues = __webpack_require__(308);
 
 	var _venues2 = _interopRequireDefault(_venues);
 
-	var _events = __webpack_require__(306);
+	var _events = __webpack_require__(309);
 
 	var _events2 = _interopRequireDefault(_events);
 
@@ -31873,7 +32082,7 @@
 	exports.default = rootReducer;
 
 /***/ },
-/* 305 */
+/* 308 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31882,11 +32091,16 @@
 		value: true
 	});
 
-	var _venues = __webpack_require__(297);
+	var _venues = __webpack_require__(298);
 
 	var INIT_STATE = {
 		venuesList: {
 			venues: [],
+			error: null,
+			loading: false
+		},
+		currentVenue: {
+			venue: {},
 			error: null,
 			loading: false
 		}
@@ -31906,6 +32120,15 @@
 			case _venues.FETCH_VENUES_ERROR:
 				error = action.payload.data || { message: action.payload.message };
 				return Object.assign({}, state, { venuesList: { venues: [], error: error, loading: false } });
+			case _venues.FETCH_ONE_VENUE:
+				console.log("fetching one venue");
+				return Object.assign({}, state, { currentVenue: { venue: {}, error: null, loading: true } });
+			case _venues.FETCH_ONE_VENUE_SUCCESS:
+				return Object.assign({}, state, { currentVenue: { venue: action.payload.data, error: null, loading: false } });
+			case _venues.FETCH_ONE_VENUE_ERROR:
+				error = action.payload.data || { message: action.payload.message };
+				return Object.assign({}, state, { currentVenue: { venue: {}, error: error, loading: false } });
+
 			default:
 				return state;
 		}
@@ -31914,7 +32137,7 @@
 	exports.default = venues;
 
 /***/ },
-/* 306 */
+/* 309 */
 /***/ function(module, exports) {
 
 	"use strict";

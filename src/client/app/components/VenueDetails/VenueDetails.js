@@ -7,13 +7,12 @@ class VenueDetails extends Component {
   }
 
   render() {
-    console.log("param in component", this.props.params);
     return (
       <div>
         <div>
-          {this.props.venue.name}
-          {this.props.venue.address}
-          {this.props.venue.email}
+          <p>{this.props.venue.name}</p>
+          <p>{this.props.venue.address}</p>
+          <p>{this.props.venue.email}</p>
         </div>
       </div>
     );

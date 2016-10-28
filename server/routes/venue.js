@@ -13,15 +13,13 @@ router.get('/', function(req,res,next){
 	.catch(next);
 })
 
-router.get('/:id', (req, res, next) => {
+router.get('/:id', function(req, res, next){
 	Venue.findById(req.params.id)
 	.then(venue => {
 		res.json(venue);
 	})
 	.catch(next);
 })
-
-
 
 
 export default router;

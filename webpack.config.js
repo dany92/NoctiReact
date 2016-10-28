@@ -2,6 +2,7 @@ let webpack = require('webpack');
 let path = require('path');
 
 module.exports = {
+  devtool: 'source-map',
   context: path.join(__dirname, "src"),
   entry: "./client/app/index.js",
   module: {

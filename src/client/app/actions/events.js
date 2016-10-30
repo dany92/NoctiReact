@@ -8,6 +8,10 @@ export const FETCH_ONE_EVENT = 'FETCH_ONE_EVENT';
 export const FETCH_ONE_EVENT_SUCCESS = 'FETCH_ONE_EVENT_SUCCESS';
 export const FETCH_ONE_EVENT_ERROR = 'FETCH_ONE_EVENT_ERROR';
 
+export const CREATE_EVENT = 'CREATE_EVENT';
+export const CREATE_EVENT_SUCCESS = 'CREATE_EVENT_SUCCESS';
+export const CREATE_EVENT_ERROR = 'CREATE_EVENT_ERROR';
+
 export const fetchEvents = () => {
 	const request = axios.get("/api/events");
 	return {
@@ -48,6 +52,28 @@ export const fetchOneEventSuccess = (event) => {
 export const fetchOneEventFailure = (error) => {
 	return {
 		type: FETCH_ONE_EVENT_ERROR,
+		payload: error,
+	};
+}
+
+export const createEvent = (event) => {
+	const request = axios.post("/api/events", event);
+	return {
+		type: CREATE_EVENT,
+		payload: request,
+	};
+}
+
+export const createEventSuccess = (newEvent) => {
+	return {
+		type: CREATE_EVENT_SUCCESS,
+		payload: newEvent,
+	};
+}
+
+export const createEventFailure = (error) => {
+	return {
+		type: CREATE_EVENT_ERROR,
 		payload: error,
 	};
 }

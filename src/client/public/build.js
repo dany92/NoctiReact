@@ -92,7 +92,11 @@
 	
 	var _EventDetails2 = _interopRequireDefault(_EventDetails);
 	
-	var _reducers = __webpack_require__(310);
+	var _EventNew = __webpack_require__(310);
+	
+	var _EventNew2 = _interopRequireDefault(_EventNew);
+	
+	var _reducers = __webpack_require__(312);
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
@@ -120,6 +124,7 @@
 					_react2.default.createElement(_reactRouter.Route, { path: "/venues", component: _Venue2.default }),
 					_react2.default.createElement(_reactRouter.Route, { path: "/venues/:id", component: _VenueDetails2.default }),
 					_react2.default.createElement(_reactRouter.Route, { path: "/events", component: _Event2.default }),
+					_react2.default.createElement(_reactRouter.Route, { path: "/events/new", component: _EventNew2.default }),
 					_react2.default.createElement(_reactRouter.Route, { path: "/events/:id", component: _EventDetails2.default })
 				)
 			)
@@ -31995,7 +32000,7 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.fetchOneEventFailure = exports.fetchOneEventSuccess = exports.fetchOneEvent = exports.fetchEventsFailure = exports.fetchEventsSuccess = exports.fetchEvents = exports.FETCH_ONE_EVENT_ERROR = exports.FETCH_ONE_EVENT_SUCCESS = exports.FETCH_ONE_EVENT = exports.FETCH_EVENTS_ERROR = exports.FETCH_EVENTS_SUCCESS = exports.FETCH_EVENTS = undefined;
+	exports.createEventFailure = exports.createEventSuccess = exports.createEvent = exports.fetchOneEventFailure = exports.fetchOneEventSuccess = exports.fetchOneEvent = exports.fetchEventsFailure = exports.fetchEventsSuccess = exports.fetchEvents = exports.CREATE_EVENT_ERROR = exports.CREATE_EVENT_SUCCESS = exports.CREATE_EVENT = exports.FETCH_ONE_EVENT_ERROR = exports.FETCH_ONE_EVENT_SUCCESS = exports.FETCH_ONE_EVENT = exports.FETCH_EVENTS_ERROR = exports.FETCH_EVENTS_SUCCESS = exports.FETCH_EVENTS = undefined;
 	
 	var _axios = __webpack_require__(269);
 	
@@ -32010,6 +32015,10 @@
 	var FETCH_ONE_EVENT = exports.FETCH_ONE_EVENT = 'FETCH_ONE_EVENT';
 	var FETCH_ONE_EVENT_SUCCESS = exports.FETCH_ONE_EVENT_SUCCESS = 'FETCH_ONE_EVENT_SUCCESS';
 	var FETCH_ONE_EVENT_ERROR = exports.FETCH_ONE_EVENT_ERROR = 'FETCH_ONE_EVENT_ERROR';
+	
+	var CREATE_EVENT = exports.CREATE_EVENT = 'CREATE_EVENT';
+	var CREATE_EVENT_SUCCESS = exports.CREATE_EVENT_SUCCESS = 'CREATE_EVENT_SUCCESS';
+	var CREATE_EVENT_ERROR = exports.CREATE_EVENT_ERROR = 'CREATE_EVENT_ERROR';
 	
 	var fetchEvents = exports.fetchEvents = function fetchEvents() {
 		var request = _axios2.default.get("/api/events");
@@ -32051,6 +32060,28 @@
 	var fetchOneEventFailure = exports.fetchOneEventFailure = function fetchOneEventFailure(error) {
 		return {
 			type: FETCH_ONE_EVENT_ERROR,
+			payload: error
+		};
+	};
+	
+	var createEvent = exports.createEvent = function createEvent(event) {
+		var request = _axios2.default.post("/api/events", event);
+		return {
+			type: CREATE_EVENT,
+			payload: request
+		};
+	};
+	
+	var createEventSuccess = exports.createEventSuccess = function createEventSuccess(newEvent) {
+		return {
+			type: CREATE_EVENT_SUCCESS,
+			payload: newEvent
+		};
+	};
+	
+	var createEventFailure = exports.createEventFailure = function createEventFailure(error) {
+		return {
+			type: CREATE_EVENT_ERROR,
 			payload: error
 		};
 	};
@@ -32277,13 +32308,154 @@
 		value: true
 	});
 	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _axios = __webpack_require__(269);
+	
+	var _axios2 = _interopRequireDefault(_axios);
+	
+	var _reactRedux = __webpack_require__(250);
+	
+	var _EventNewContainer = __webpack_require__(311);
+	
+	var _EventNewContainer2 = _interopRequireDefault(_EventNewContainer);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var EventNew = function (_Component) {
+		_inherits(EventNew, _Component);
+	
+		function EventNew(props) {
+			_classCallCheck(this, EventNew);
+	
+			return _possibleConstructorReturn(this, (EventNew.__proto__ || Object.getPrototypeOf(EventNew)).call(this, props));
+		}
+	
+		_createClass(EventNew, [{
+			key: 'render',
+			value: function render() {
+				var id = this.props.params.id;
+	
+				return _react2.default.createElement(_EventNewContainer2.default, null);
+			}
+		}]);
+	
+		return EventNew;
+	}(_react.Component);
+	
+	exports.default = EventNew;
+
+/***/ },
+/* 311 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(250);
+	
+	var _events = __webpack_require__(306);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var EventNewContainer = function (_Component) {
+	  _inherits(EventNewContainer, _Component);
+	
+	  function EventNewContainer(props) {
+	    _classCallCheck(this, EventNewContainer);
+	
+	    var _this = _possibleConstructorReturn(this, (EventNewContainer.__proto__ || Object.getPrototypeOf(EventNewContainer)).call(this, props));
+	
+	    _this.handleSubmit = _this.handleSubmit.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(EventNewContainer, [{
+	    key: 'handleSubmit',
+	    value: function handleSubmit() {
+	      var example = {
+	        title: 'Halloween Dark Night',
+	        description: 'Come dressed up in costumes and have fun',
+	        start_date: '2016-10-31 23:30',
+	        end_date: '2016-11-01 4:30',
+	        businessId: 1
+	      };
+	      this.props.createEvent(example);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'button',
+	        { type: 'submit', onClick: this.handleSubmit },
+	        'Create new event'
+	      );
+	    }
+	  }]);
+	
+	  return EventNewContainer;
+	}(_react.Component);
+	
+	EventNewContainer.propTypes = {};
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {};
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    createEvent: function createEvent(event) {
+	      dispatch((0, _events.createEvent)(event)).then(function (res) {
+	        return !res.error ? dispatch((0, _events.createEventSuccess)(res.payload)) : dispatch((0, _events.createEventFailure)(res.payload));
+	      });
+	    }
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(EventNewContainer);
+
+/***/ },
+/* 312 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
 	var _redux = __webpack_require__(235);
 	
-	var _venues = __webpack_require__(311);
+	var _venues = __webpack_require__(313);
 	
 	var _venues2 = _interopRequireDefault(_venues);
 	
-	var _events = __webpack_require__(312);
+	var _events = __webpack_require__(314);
 	
 	var _events2 = _interopRequireDefault(_events);
 	
@@ -32300,7 +32472,7 @@
 	exports.default = rootReducer;
 
 /***/ },
-/* 311 */
+/* 313 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -32355,7 +32527,7 @@
 	exports.default = venues;
 
 /***/ },
-/* 312 */
+/* 314 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32374,6 +32546,11 @@
 		},
 		currentEvent: {
 			event: {},
+			error: null,
+			loading: false
+		},
+		newEvent: {
+			event: null,
 			error: null,
 			loading: false
 		}
@@ -32399,7 +32576,13 @@
 			case _events.FETCH_ONE_EVENT_ERROR:
 				error = action.payload.data || { message: action.payload.message };
 				return Object.assign({}, state, { currentEvent: { event: {}, error: error, loading: false } });
-	
+			case _events.CREATE_EVENT:
+				return Object.assign({}, state, { newEvent: Object.assign({}, state.newEvent, { loading: true }) });
+			case _events.CREATE_EVENT_SUCCESS:
+				return Object.assign({}, state, { newEvent: { event: action.payload.data, error: null, loading: false } });
+			case _events.CREATE_EVENT_ERROR:
+				error = action.payload.data || { message: action.payload.message };
+				return Object.assign({}, state, { newEvent: { events: null, error: error, loading: false } });
 			default:
 				return state;
 		}

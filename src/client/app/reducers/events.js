@@ -4,7 +4,10 @@ import {
 	FETCH_EVENTS_ERROR,
 	FETCH_ONE_EVENT,
 	FETCH_ONE_EVENT_SUCCESS,
-	FETCH_ONE_EVENT_ERROR 
+	FETCH_ONE_EVENT_ERROR, 
+	CREATE_EVENT,
+	CREATE_EVENT_SUCCESS,
+	CREATE_EVENT_ERROR 
 } from '../actions/events';
 
 const INIT_STATE = {
@@ -15,6 +18,11 @@ const INIT_STATE = {
 	},
 	currentEvent: {
 		event: {},
+		error: null,
+		loading: false
+	},
+	newEvent: {
+		event: null,
 		error: null,
 		loading: false
 	}
@@ -37,7 +45,13 @@ const events = (state = INIT_STATE, action) => {
 		case FETCH_ONE_EVENT_ERROR:
 			error = action.payload.data || {message: action.payload.message}
 			return Object.assign({}, state, {currentEvent: {event: {}, error: error, loading: false}});
-
+		case CREATE_EVENT:
+			return Object.assign({}, state, {newEvent: Object.assign({}, state.newEvent, {loading: true})});
+		case CREATE_EVENT_SUCCESS:
+			return Object.assign({}, state, {newEvent: {event: action.payload.data, error: null, loading: false}});
+		case CREATE_EVENT_ERROR:
+			error = action.payload.data || {message: action.payload.message}
+			return Object.assign({}, state, {newEvent: {events: null, error: error, loading: false}});
 		default:
 			return state;
 	}

@@ -1,0 +1,6 @@
+{
+  "name": "EventNewContainer",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./EventNewContainer.js"
+}

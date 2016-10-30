@@ -88,11 +88,11 @@
 	
 	var _Event2 = _interopRequireDefault(_Event);
 	
-	var _EventDetail = __webpack_require__(306);
+	var _EventDetails = __webpack_require__(307);
 	
-	var _EventDetail2 = _interopRequireDefault(_EventDetail);
+	var _EventDetails2 = _interopRequireDefault(_EventDetails);
 	
-	var _reducers = __webpack_require__(307);
+	var _reducers = __webpack_require__(310);
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
@@ -120,7 +120,7 @@
 					_react2.default.createElement(_reactRouter.Route, { path: "/venues", component: _Venue2.default }),
 					_react2.default.createElement(_reactRouter.Route, { path: "/venues/:id", component: _VenueDetails2.default }),
 					_react2.default.createElement(_reactRouter.Route, { path: "/events", component: _Event2.default }),
-					_react2.default.createElement(_reactRouter.Route, { path: "/events/:id", component: _EventDetail2.default })
+					_react2.default.createElement(_reactRouter.Route, { path: "/events/:id", component: _EventDetails2.default })
 				)
 			)
 		), app);
@@ -31723,13 +31723,15 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _axios = __webpack_require__(269);
+	
+	var _axios2 = _interopRequireDefault(_axios);
+	
 	var _reactRedux = __webpack_require__(250);
 	
-	var _events = __webpack_require__(303);
+	var _EventListContainer = __webpack_require__(303);
 	
-	var _EventList = __webpack_require__(304);
-	
-	var _EventList2 = _interopRequireDefault(_EventList);
+	var _EventListContainer2 = _interopRequireDefault(_EventListContainer);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -31745,20 +31747,10 @@
 		function Event(props) {
 			_classCallCheck(this, Event);
 	
-			var _this = _possibleConstructorReturn(this, (Event.__proto__ || Object.getPrototypeOf(Event)).call(this, props));
-	
-			_this.state = {
-				events: []
-			};
-			return _this;
+			return _possibleConstructorReturn(this, (Event.__proto__ || Object.getPrototypeOf(Event)).call(this, props));
 		}
 	
 		_createClass(Event, [{
-			key: 'componentDidMount',
-			value: function componentDidMount() {
-				this.props.onMount();
-			}
-		}, {
 			key: 'render',
 			value: function render() {
 				return _react2.default.createElement(
@@ -31769,7 +31761,7 @@
 						null,
 						' This is Events page '
 					),
-					_react2.default.createElement(_EventList2.default, null)
+					_react2.default.createElement(_EventListContainer2.default, null)
 				);
 			}
 		}]);
@@ -31777,66 +31769,10 @@
 		return Event;
 	}(_react.Component);
 	
-	Event.propTypes = {
-		events: _react.PropTypes.array
-	};
-	
-	var mapStateToProps = function mapStateToProps(state) {
-		console.log("state from Event Route component", state);
-		return { events: state.events };
-	};
-	
-	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-		return {
-			onMount: function onMount() {
-				dispatch((0, _events.fetchAll)());
-			}
-		};
-	};
-	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Event);
+	exports.default = Event;
 
 /***/ },
 /* 303 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.fetchAll = undefined;
-	
-	var _axios = __webpack_require__(269);
-	
-	var _axios2 = _interopRequireDefault(_axios);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var _getAllEvents = function _getAllEvents() {
-		var events = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-		return {
-			type: "GET_EVENTS",
-			payload: { events: events }
-		};
-	};
-	
-	var fetchAll = exports.fetchAll = function fetchAll() {
-		console.log("fetching events data");
-		return function (dispatch, getState) {
-			var currentEvents = getState().events;
-			if (currentEvents.length > 0) {
-				dispatch(_getAllEvents());
-			} else {
-				_axios2.default.get("/api/events").then(function (res) {
-					dispatch(_getAllEvents(res.data));
-				});
-			}
-		};
-	};
-
-/***/ },
-/* 304 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31852,6 +31788,86 @@
 	var _react2 = _interopRequireDefault(_react);
 	
 	var _reactRedux = __webpack_require__(250);
+	
+	var _EventList = __webpack_require__(304);
+	
+	var _EventList2 = _interopRequireDefault(_EventList);
+	
+	var _events = __webpack_require__(306);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var EventListContainer = function (_Component) {
+	  _inherits(EventListContainer, _Component);
+	
+	  function EventListContainer(props) {
+	    _classCallCheck(this, EventListContainer);
+	
+	    return _possibleConstructorReturn(this, (EventListContainer.__proto__ || Object.getPrototypeOf(EventListContainer)).call(this, props));
+	  }
+	
+	  _createClass(EventListContainer, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.props.fetchEvents();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props$eventsList = this.props.eventsList;
+	      var events = _props$eventsList.events;
+	      var loading = _props$eventsList.loading;
+	      var error = _props$eventsList.error;
+	
+	      return _react2.default.createElement(_EventList2.default, { events: events });
+	    }
+	  }]);
+	
+	  return EventListContainer;
+	}(_react.Component);
+	
+	EventListContainer.propTypes = {
+	  eventsList: _react.PropTypes.object
+	};
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  console.log(state);
+	  return { eventsList: state.events.eventsList };
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    fetchEvents: function fetchEvents() {
+	      dispatch((0, _events.fetchEvents)()).then(function (res) {
+	        return !res.error ? dispatch((0, _events.fetchEventsSuccess)(res.payload)) : dispatch((0, _events.fetchEventsFailure)(res.payload));
+	      });
+	    }
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(EventListContainer);
+
+/***/ },
+/* 304 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
 	
 	var _EventItem = __webpack_require__(305);
 	
@@ -31875,13 +31891,18 @@
 	  }
 	
 	  _createClass(EventList, [{
-	    key: 'render',
+	    key: "componentWillMount",
+	    value: function componentWillMount() {
+	      this.props.events;
+	    }
+	  }, {
+	    key: "render",
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'div',
+	        "div",
 	        null,
-	        this.props.events.map(function (event, index) {
-	          return _react2.default.createElement(_EventItem2.default, { key: index, event: event });
+	        this.props.events.map(function (event) {
+	          return _react2.default.createElement(_EventItem2.default, { key: event.id, event: event });
 	        })
 	      );
 	    }
@@ -31894,12 +31915,7 @@
 	  events: _react.PropTypes.array
 	};
 	
-	var mapStateToProps = function mapStateToProps(state) {
-	  console.log("state from EventList component", state);
-	  return { events: state.events };
-	};
-	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(EventList);
+	exports.default = EventList;
 
 /***/ },
 /* 305 */
@@ -31979,86 +31995,65 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
+	exports.fetchOneEventFailure = exports.fetchOneEventSuccess = exports.fetchOneEvent = exports.fetchEventsFailure = exports.fetchEventsSuccess = exports.fetchEvents = exports.FETCH_ONE_EVENT_ERROR = exports.FETCH_ONE_EVENT_SUCCESS = exports.FETCH_ONE_EVENT = exports.FETCH_EVENTS_ERROR = exports.FETCH_EVENTS_SUCCESS = exports.FETCH_EVENTS = undefined;
 	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	var _axios = __webpack_require__(269);
 	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(250);
+	var _axios2 = _interopRequireDefault(_axios);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	var FETCH_EVENTS = exports.FETCH_EVENTS = 'FETCH_EVENTS';
+	var FETCH_EVENTS_SUCCESS = exports.FETCH_EVENTS_SUCCESS = 'FETCH_EVENTS_SUCCESS';
+	var FETCH_EVENTS_ERROR = exports.FETCH_EVENTS_ERROR = 'FETCH_EVENTS_ERROR';
 	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	var FETCH_ONE_EVENT = exports.FETCH_ONE_EVENT = 'FETCH_ONE_EVENT';
+	var FETCH_ONE_EVENT_SUCCESS = exports.FETCH_ONE_EVENT_SUCCESS = 'FETCH_ONE_EVENT_SUCCESS';
+	var FETCH_ONE_EVENT_ERROR = exports.FETCH_ONE_EVENT_ERROR = 'FETCH_ONE_EVENT_ERROR';
 	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var EventDetail = function (_Component) {
-		_inherits(EventDetail, _Component);
-	
-		function EventDetail(props) {
-			_classCallCheck(this, EventDetail);
-	
-			return _possibleConstructorReturn(this, (EventDetail.__proto__ || Object.getPrototypeOf(EventDetail)).call(this, props));
-		}
-	
-		_createClass(EventDetail, [{
-			key: 'render',
-			value: function render() {
-				var id = this.props.params.id;
-	
-				var findEvent = function findEvent(event) {
-					return event.id === Number(id);
-				};
-				var event = this.props.events.find(findEvent);
-				return _react2.default.createElement(
-					'div',
-					null,
-					_react2.default.createElement(
-						'h1',
-						null,
-						' This is EventDetail! '
-					),
-					'Event Id: ',
-					id,
-					_react2.default.createElement(
-						'ol',
-						null,
-						_react2.default.createElement(
-							'li',
-							null,
-							event.title
-						),
-						_react2.default.createElement(
-							'li',
-							null,
-							event.description
-						),
-						_react2.default.createElement(
-							'li',
-							null,
-							event.start_date
-						)
-					)
-				);
-			}
-		}]);
-	
-		return EventDetail;
-	}(_react.Component);
-	
-	EventDetail.propTypes = {
-		events: _react.PropTypes.array
+	var fetchEvents = exports.fetchEvents = function fetchEvents() {
+		var request = _axios2.default.get("/api/events");
+		return {
+			type: FETCH_EVENTS,
+			payload: request
+		};
 	};
 	
-	var mapStateToProps = function mapStateToProps(state) {
-		return { events: state.events };
+	var fetchEventsSuccess = exports.fetchEventsSuccess = function fetchEventsSuccess(events) {
+		return {
+			type: FETCH_EVENTS_SUCCESS,
+			payload: events
+		};
 	};
 	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(EventDetail);
+	var fetchEventsFailure = exports.fetchEventsFailure = function fetchEventsFailure(error) {
+		return {
+			type: FETCH_EVENTS_ERROR,
+			payload: error
+		};
+	};
+	
+	var fetchOneEvent = exports.fetchOneEvent = function fetchOneEvent(id) {
+		var request = _axios2.default.get('/api/events/' + id);
+		return {
+			type: FETCH_ONE_EVENT,
+			payload: request
+		};
+	};
+	
+	var fetchOneEventSuccess = exports.fetchOneEventSuccess = function fetchOneEventSuccess(event) {
+		return {
+			type: FETCH_ONE_EVENT_SUCCESS,
+			payload: event
+		};
+	};
+	
+	var fetchOneEventFailure = exports.fetchOneEventFailure = function fetchOneEventFailure(error) {
+		return {
+			type: FETCH_ONE_EVENT_ERROR,
+			payload: error
+		};
+	};
 
 /***/ },
 /* 307 */
@@ -32070,13 +32065,225 @@
 		value: true
 	});
 	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _axios = __webpack_require__(269);
+	
+	var _axios2 = _interopRequireDefault(_axios);
+	
+	var _reactRedux = __webpack_require__(250);
+	
+	var _EventDetailsContainer = __webpack_require__(308);
+	
+	var _EventDetailsContainer2 = _interopRequireDefault(_EventDetailsContainer);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var EventDetails = function (_Component) {
+		_inherits(EventDetails, _Component);
+	
+		function EventDetails(props) {
+			_classCallCheck(this, EventDetails);
+	
+			return _possibleConstructorReturn(this, (EventDetails.__proto__ || Object.getPrototypeOf(EventDetails)).call(this, props));
+		}
+	
+		_createClass(EventDetails, [{
+			key: 'render',
+			value: function render() {
+				var id = this.props.params.id;
+	
+				return _react2.default.createElement(_EventDetailsContainer2.default, { id: id });
+			}
+		}]);
+	
+		return EventDetails;
+	}(_react.Component);
+	
+	exports.default = EventDetails;
+
+/***/ },
+/* 308 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(250);
+	
+	var _EventDetails = __webpack_require__(309);
+	
+	var _EventDetails2 = _interopRequireDefault(_EventDetails);
+	
+	var _events = __webpack_require__(306);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var EventDetailsContainer = function (_Component) {
+	  _inherits(EventDetailsContainer, _Component);
+	
+	  function EventDetailsContainer(props) {
+	    _classCallCheck(this, EventDetailsContainer);
+	
+	    return _possibleConstructorReturn(this, (EventDetailsContainer.__proto__ || Object.getPrototypeOf(EventDetailsContainer)).call(this, props));
+	  }
+	
+	  _createClass(EventDetailsContainer, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.props.fetchOneEvent(this.props.id);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props$currentEvent = this.props.currentEvent;
+	      var event = _props$currentEvent.event;
+	      var loading = _props$currentEvent.loading;
+	      var error = _props$currentEvent.error;
+	
+	      return _react2.default.createElement(_EventDetails2.default, { event: event });
+	    }
+	  }]);
+	
+	  return EventDetailsContainer;
+	}(_react.Component);
+	
+	EventDetailsContainer.propTypes = {
+	  currentEvent: _react.PropTypes.object
+	};
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  console.log(state);
+	  return { currentEvent: state.events.currentEvent };
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    fetchOneEvent: function fetchOneEvent(id) {
+	      dispatch((0, _events.fetchOneEvent)(id)).then(function (res) {
+	        return !res.error ? dispatch((0, _events.fetchOneEventSuccess)(res.payload)) : dispatch((0, _events.fetchOneEventFailure)(res.payload));
+	      });
+	    }
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(EventDetailsContainer);
+
+/***/ },
+/* 309 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(172);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var EventDetails = function (_Component) {
+	  _inherits(EventDetails, _Component);
+	
+	  function EventDetails(props) {
+	    _classCallCheck(this, EventDetails);
+	
+	    return _possibleConstructorReturn(this, (EventDetails.__proto__ || Object.getPrototypeOf(EventDetails)).call(this, props));
+	  }
+	
+	  _createClass(EventDetails, [{
+	    key: "render",
+	    value: function render() {
+	      return _react2.default.createElement(
+	        "div",
+	        null,
+	        _react2.default.createElement(
+	          "div",
+	          null,
+	          _react2.default.createElement(
+	            "p",
+	            null,
+	            this.props.event.title
+	          ),
+	          _react2.default.createElement(
+	            "p",
+	            null,
+	            this.props.event.start_date
+	          ),
+	          _react2.default.createElement(
+	            "p",
+	            null,
+	            this.props.event.end_date
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return EventDetails;
+	}(_react.Component);
+	
+	EventDetails.propTypes = {
+	  event: _react.PropTypes.object
+	};
+	
+	exports.default = EventDetails;
+
+/***/ },
+/* 310 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
 	var _redux = __webpack_require__(235);
 	
-	var _venues = __webpack_require__(308);
+	var _venues = __webpack_require__(311);
 	
 	var _venues2 = _interopRequireDefault(_venues);
 	
-	var _events = __webpack_require__(309);
+	var _events = __webpack_require__(312);
 	
 	var _events2 = _interopRequireDefault(_events);
 	
@@ -32093,7 +32300,7 @@
 	exports.default = rootReducer;
 
 /***/ },
-/* 308 */
+/* 311 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -32148,21 +32355,51 @@
 	exports.default = venues;
 
 /***/ },
-/* 309 */
-/***/ function(module, exports) {
+/* 312 */
+/***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
+	
+	var _events = __webpack_require__(306);
+	
+	var INIT_STATE = {
+		eventsList: {
+			events: [],
+			error: null,
+			loading: false
+		},
+		currentEvent: {
+			event: {},
+			error: null,
+			loading: false
+		}
+	};
+	
 	var events = function events() {
-		var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+		var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : INIT_STATE;
 		var action = arguments[1];
 	
+		var error = void 0;
 		switch (action.type) {
-			case "GET_EVENTS":
-				return state.concat(action.payload.events);
+			case _events.FETCH_EVENTS:
+				return Object.assign({}, state, { eventsList: { events: [], error: null, loading: true } });
+			case _events.FETCH_EVENTS_SUCCESS:
+				return Object.assign({}, state, { eventsList: { events: action.payload.data, error: null, loading: false } });
+			case _events.FETCH_EVENTS_ERROR:
+				error = action.payload.data || { message: action.payload.message };
+				return Object.assign({}, state, { eventsList: { events: [], error: error, loading: false } });
+			case _events.FETCH_ONE_EVENT:
+				return Object.assign({}, state, { currentEvent: { event: {}, error: null, loading: true } });
+			case _events.FETCH_ONE_EVENT_SUCCESS:
+				return Object.assign({}, state, { currentEvent: { event: action.payload.data, error: null, loading: false } });
+			case _events.FETCH_ONE_EVENT_ERROR:
+				error = action.payload.data || { message: action.payload.message };
+				return Object.assign({}, state, { currentEvent: { event: {}, error: error, loading: false } });
+	
 			default:
 				return state;
 		}

@@ -21,5 +21,22 @@ router.get('/:id', function(req, res, next){
 	.catch(next);
 })
 
+router.post('/', function(req,res,next){
+	Venue.create(req.body)
+	.then(createdVenue => res.json(createdVenue))
+	.catch(next);
+})
+
+router.put('/:id', function(req,res,next){
+	req.venue.update(req.body)
+	.then(updatedVenue => res.json(updatedVenue))
+	.catch(next);
+})
+
+router.delete('/:id', function(req,res,next){
+	req.venue.destroy()
+	.then(destroyedVenue => res.send('Venue Destroyed'))
+	.catch(next);
+})
 
 export default router;

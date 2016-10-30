@@ -11,7 +11,7 @@ import Home from "./routes/Home";
 import Venue from "./routes/Venue";
 import VenueDetails from "./routes/VenueDetails";
 import Event from "./routes/Event";
-import EventDetail from "./routes/EventDetail";
+import EventDetails from "./routes/EventDetails";
 import rootReducer from './reducers';
 
 const app = document.getElementById('app');
@@ -31,7 +31,7 @@ const render = () => {
 					<Route path="/venues" component={ Venue }></Route>
 					<Route path="/venues/:id" component={ VenueDetails }></Route>
 					<Route path="/events" component={ Event }></Route>
-					<Route path="/events/:id" component={ EventDetail }></Route>
+					<Route path="/events/:id" component={ EventDetails }></Route>
 				</Route>
 			</Router>
 		</Provider> 

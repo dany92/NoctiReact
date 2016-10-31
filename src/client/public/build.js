@@ -32344,8 +32344,6 @@
 		_createClass(EventNew, [{
 			key: 'render',
 			value: function render() {
-				var id = this.props.params.id;
-	
 				return _react2.default.createElement(_EventNewContainer2.default, null);
 			}
 		}]);
@@ -32373,6 +32371,8 @@
 	
 	var _reactRedux = __webpack_require__(250);
 	
+	var _reactRouter = __webpack_require__(172);
+	
 	var _events = __webpack_require__(306);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -32397,7 +32397,8 @@
 	
 	  _createClass(EventNewContainer, [{
 	    key: 'handleSubmit',
-	    value: function handleSubmit() {
+	    value: function handleSubmit(e) {
+	      e.preventDefault();
 	      var example = {
 	        title: 'Halloween Dark Night',
 	        description: 'Come dressed up in costumes and have fun',
@@ -32406,6 +32407,7 @@
 	        businessId: 1
 	      };
 	      this.props.createEvent(example);
+	      _reactRouter.browserHistory.push('/events');
 	    }
 	  }, {
 	    key: 'render',

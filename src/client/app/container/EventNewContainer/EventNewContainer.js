@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from "react";
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 
 import { createEvent, createEventSuccess, createEventFailure } from '../../actions/events';
 
@@ -9,7 +10,8 @@ class EventNewContainer extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit() {
+  handleSubmit(e) {
+    e.preventDefault();
     const example = {
         title: 'Halloween Dark Night',
         description: 'Come dressed up in costumes and have fun',
@@ -18,6 +20,7 @@ class EventNewContainer extends Component {
         businessId: 1
     };
     this.props.createEvent(example);
+    browserHistory.push('/events');
   }
 
   render() {

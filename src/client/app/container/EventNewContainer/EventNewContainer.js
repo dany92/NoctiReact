@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 
 import { createEvent, createEventSuccess, createEventFailure } from '../../actions/events';
+import EventForm from '../../components/EventForm';
+
 
 class EventNewContainer extends Component {
   constructor(props) {
@@ -25,7 +27,7 @@ class EventNewContainer extends Component {
 
   render() {
     return (
-      <button type="submit" onClick={this.handleSubmit}>Create new event</button>
+      <EventForm handleSubmit={this.handleSubmit} />
     );
   }
 }

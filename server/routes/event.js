@@ -10,6 +10,20 @@ router.get('/', function(req,res,next){
 	.catch(next);
 })
 
+router.param('id', function (req, res, next, id) {
+	Event.findById(id)
+	.then(event => {
+		if (event) {
+			req.event = event;
+			next();
+			return null; 
+		} else {
+			throw HttpError(404);
+		}
+	})
+	.catch(next);
+});
+
 router.get('/:id', function(req, res, next){
 	Event.findById(req.params.id)
 	.then(event => {

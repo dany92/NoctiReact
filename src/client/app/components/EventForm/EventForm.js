@@ -5,36 +5,39 @@ class EventForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        form: {
-        title: '',
-        description: '',
-        start_date: '',
-        end_date: '',
-        venueId: ''
-      }
+      title: '',
+      description: '',
+      start_date: '',
+      end_date: '',
+      venueId: 0
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.event !== this.state) {
+      this.setState(nextProps.event);
+    }
+  }
+  
   onSubmit(e) {
       e.preventDefault();
-      console.log("this is taget", this.state.form);
-      this.props.handleSubmit(form);
-      browserHistory.push('/events');
+      console.log("this is target", this.state);
+      this.props.handleSubmit(this.state);
   }
 
   onChange(e) {
-    console.log("currVal", this.state.form[e.target.name]);
+    console.log("currVal", this.state[e.target.name]);
     console.log("tobechanged", e.target.value);
-    this.state.form[e.target.name] = e.target.value;
-    this.setState({form: this.state.form})
+    this.state[e.target.name] = e.target.value;
+    this.setState(this.state)
   }
 
   render() {
     console.log("form init val", this.props.event);
-    console.log("state", this.state.form);
-    const { title, description, start_date, end_date, venueId } = this.props.event;
+    console.log("state", this.state);
+    const { title, description, start_date, end_date, venueId } = this.state;
     return (
       <div>
         <form onSubmit={this.onSubmit}>

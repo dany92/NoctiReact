@@ -32398,8 +32398,10 @@
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
 	    updateEvent: function updateEvent(event) {
-	      dispatch((0, _events.updateEvent)(undefined.props.event.id, event)).then(function (res) {
+	      dispatch((0, _events.updateEvent)(event.id, event)).then(function (res) {
 	        return !res.error ? dispatch((0, _events.updateEventSuccess)(res.payload)) : dispatch((0, _events.updateEventFailure)(res.payload));
+	      }).then(function () {
+	        _reactRouter.browserHistory.push('/events');
 	      });
 	    }
 	  };
@@ -32442,13 +32444,11 @@
 	    var _this = _possibleConstructorReturn(this, (EventForm.__proto__ || Object.getPrototypeOf(EventForm)).call(this, props));
 	
 	    _this.state = {
-	      form: {
-	        title: '',
-	        description: '',
-	        start_date: '',
-	        end_date: '',
-	        venueId: ''
-	      }
+	      title: '',
+	      description: '',
+	      start_date: '',
+	      end_date: '',
+	      venueId: 0
 	    };
 	    _this.onChange = _this.onChange.bind(_this);
 	    _this.onSubmit = _this.onSubmit.bind(_this);
@@ -32456,33 +32456,38 @@
 	  }
 	
 	  _createClass(EventForm, [{
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      if (nextProps.event !== this.state) {
+	        this.setState(nextProps.event);
+	      }
+	    }
+	  }, {
 	    key: 'onSubmit',
 	    value: function onSubmit(e) {
 	      e.preventDefault();
-	
-	      console.log("this is taget", this.state.form);
-	      this.props.handleSubmit(form);
-	      _reactRouter.browserHistory.push('/events');
+	      console.log("this is target", this.state);
+	      this.props.handleSubmit(this.state);
 	    }
 	  }, {
 	    key: 'onChange',
 	    value: function onChange(e) {
-	      console.log("currVal", this.state.form[e.target.name]);
+	      console.log("currVal", this.state[e.target.name]);
 	      console.log("tobechanged", e.target.value);
-	      this.state.form[e.target.name] = e.target.value;
-	      this.setState({ form: this.state.form });
+	      this.state[e.target.name] = e.target.value;
+	      this.setState(this.state);
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
 	      console.log("form init val", this.props.event);
-	      console.log("state", this.state.form);
-	      var _props$event = this.props.event;
-	      var title = _props$event.title;
-	      var description = _props$event.description;
-	      var start_date = _props$event.start_date;
-	      var end_date = _props$event.end_date;
-	      var venueId = _props$event.venueId;
+	      console.log("state", this.state);
+	      var _state = this.state;
+	      var title = _state.title;
+	      var description = _state.description;
+	      var start_date = _state.start_date;
+	      var end_date = _state.end_date;
+	      var venueId = _state.venueId;
 	
 	      return _react2.default.createElement(
 	        'div',
@@ -32641,6 +32646,8 @@
 	    createEvent: function createEvent(event) {
 	      dispatch((0, _events.createEvent)(event)).then(function (res) {
 	        return !res.error ? dispatch((0, _events.createEventSuccess)(res.payload)) : dispatch((0, _events.createEventFailure)(res.payload));
+	      }).then(function () {
+	        _reactRouter.browserHistory.push('/events');
 	      });
 	    }
 	  };

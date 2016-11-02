@@ -40,6 +40,9 @@ const mapDispatchToProps = (dispatch) => {
         dispatch(createEventSuccess(res.payload)) : 
         dispatch(createEventFailure(res.payload))
       )
+      .then(() => {
+        browserHistory.push('/events')
+      })
     }
   }
 }

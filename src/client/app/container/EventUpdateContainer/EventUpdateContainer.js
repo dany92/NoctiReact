@@ -30,11 +30,14 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     updateEvent: (event) => {
-      dispatch(updateEvent(this.props.event.id, event))
+      dispatch(updateEvent(event.id, event))
       .then((res) => !res.error ? 
         dispatch(updateEventSuccess(res.payload)) : 
         dispatch(updateEventFailure(res.payload))
       )
+      .then(() => {
+        browserHistory.push('/events')
+      })
     }
   }
 }

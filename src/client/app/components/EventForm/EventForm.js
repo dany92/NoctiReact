@@ -5,21 +5,20 @@ class EventForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      form: {
-        title: 'Halloween Dark Night',
-        description: 'Come dressed up in costumes and have fun',
-        start_date: '2016-10-31 23:30',
-        end_date: '2016-11-01 4:30',
-        businessId: 1
+        form: {
+        title: '',
+        description: '',
+        start_date: '',
+        end_date: '',
+        venueId: ''
       }
-    }
+    };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
   onSubmit(e) {
       e.preventDefault();
-      const { form } = this.state;
       console.log("this is taget", this.state.form);
       this.props.handleSubmit(form);
       browserHistory.push('/events');
@@ -33,14 +32,17 @@ class EventForm extends Component {
   }
 
   render() {
+    console.log("form init val", this.props.event);
+    console.log("state", this.state.form);
+    const { title, description, start_date, end_date, venueId } = this.props.event;
     return (
       <div>
         <form onSubmit={this.onSubmit}>
-          <input type="text" name="title" value={this.state.form.title} onChange={this.onChange} />
-          <input type="text" name="description" value={this.state.form.description} onChange={this.onChange} />
-          <input type="text" name="start_date" value={this.state.form.start_date} onChange={this.onChange} />
-          <input type="text" name="end_date" value={this.state.form.end_date} onChange={this.onChange} />
-          <input type="number" name="businessId" value={this.state.form.businessId} onChange={this.onChange} />
+          <input type="text" name="title" value={title} onChange={this.onChange} />
+          <input type="text" name="description" value={description} onChange={this.onChange} />
+          <input type="text" name="start_date" value={start_date} onChange={this.onChange} />
+          <input type="text" name="end_date" value={end_date} onChange={this.onChange} />
+          <input type="number" name="venueId" value={venueId} onChange={this.onChange} />
           <button type="submit">Create new event</button>
         </form>
       </div>
@@ -49,7 +51,8 @@ class EventForm extends Component {
 }
 
 EventForm.propTypes = {
-  handleSubmit: PropTypes.func
+  handleSubmit: PropTypes.func,
+  event: PropTypes.object
 };
 
 export default EventForm;

@@ -92,11 +92,11 @@
 	
 	var _EventDetails2 = _interopRequireDefault(_EventDetails);
 	
-	var _EventNew = __webpack_require__(310);
+	var _EventNew = __webpack_require__(312);
 	
 	var _EventNew2 = _interopRequireDefault(_EventNew);
 	
-	var _reducers = __webpack_require__(313);
+	var _reducers = __webpack_require__(314);
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
@@ -32000,7 +32000,7 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.createEventFailure = exports.createEventSuccess = exports.createEvent = exports.fetchOneEventFailure = exports.fetchOneEventSuccess = exports.fetchOneEvent = exports.fetchEventsFailure = exports.fetchEventsSuccess = exports.fetchEvents = exports.CREATE_EVENT_ERROR = exports.CREATE_EVENT_SUCCESS = exports.CREATE_EVENT = exports.FETCH_ONE_EVENT_ERROR = exports.FETCH_ONE_EVENT_SUCCESS = exports.FETCH_ONE_EVENT = exports.FETCH_EVENTS_ERROR = exports.FETCH_EVENTS_SUCCESS = exports.FETCH_EVENTS = undefined;
+	exports.updateEventFailure = exports.updateEventSuccess = exports.updateEvent = exports.createEventFailure = exports.createEventSuccess = exports.createEvent = exports.fetchOneEventFailure = exports.fetchOneEventSuccess = exports.fetchOneEvent = exports.fetchEventsFailure = exports.fetchEventsSuccess = exports.fetchEvents = exports.UPDATE_EVENT_ERROR = exports.UPDATE_EVENT_SUCCESS = exports.UPDATE_EVENT = exports.CREATE_EVENT_ERROR = exports.CREATE_EVENT_SUCCESS = exports.CREATE_EVENT = exports.FETCH_ONE_EVENT_ERROR = exports.FETCH_ONE_EVENT_SUCCESS = exports.FETCH_ONE_EVENT = exports.FETCH_EVENTS_ERROR = exports.FETCH_EVENTS_SUCCESS = exports.FETCH_EVENTS = undefined;
 	
 	var _axios = __webpack_require__(269);
 	
@@ -32019,6 +32019,10 @@
 	var CREATE_EVENT = exports.CREATE_EVENT = 'CREATE_EVENT';
 	var CREATE_EVENT_SUCCESS = exports.CREATE_EVENT_SUCCESS = 'CREATE_EVENT_SUCCESS';
 	var CREATE_EVENT_ERROR = exports.CREATE_EVENT_ERROR = 'CREATE_EVENT_ERROR';
+	
+	var UPDATE_EVENT = exports.UPDATE_EVENT = 'UPDATE_EVENT';
+	var UPDATE_EVENT_SUCCESS = exports.UPDATE_EVENT_SUCCESS = 'UPDATE_EVENT_SUCCESS';
+	var UPDATE_EVENT_ERROR = exports.UPDATE_EVENT_ERROR = 'UPDATE_EVENT_ERROR';
 	
 	var fetchEvents = exports.fetchEvents = function fetchEvents() {
 		var request = _axios2.default.get("/api/events");
@@ -32082,6 +32086,28 @@
 	var createEventFailure = exports.createEventFailure = function createEventFailure(error) {
 		return {
 			type: CREATE_EVENT_ERROR,
+			payload: error
+		};
+	};
+	
+	var updateEvent = exports.updateEvent = function updateEvent(id, event) {
+		var request = _axios2.default.put('/api/events/' + id, event);
+		return {
+			type: UPDATE_EVENT,
+			payload: request
+		};
+	};
+	
+	var updateEventSuccess = exports.updateEventSuccess = function updateEventSuccess(updatedEvent) {
+		return {
+			type: UPDATE_EVENT_SUCCESS,
+			payload: updatedEvent
+		};
+	};
+	
+	var updateEventFailure = exports.updateEventFailure = function updateEventFailure(error) {
+		return {
+			type: UPDATE_EVENT_ERROR,
 			payload: error
 		};
 	};
@@ -32165,6 +32191,10 @@
 	
 	var _EventDetails2 = _interopRequireDefault(_EventDetails);
 	
+	var _EventUpdateContainer = __webpack_require__(310);
+	
+	var _EventUpdateContainer2 = _interopRequireDefault(_EventUpdateContainer);
+	
 	var _events = __webpack_require__(306);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -32197,7 +32227,12 @@
 	      var loading = _props$currentEvent.loading;
 	      var error = _props$currentEvent.error;
 	
-	      return _react2.default.createElement(_EventDetails2.default, { event: event });
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_EventDetails2.default, { event: event }),
+	        _react2.default.createElement(_EventUpdateContainer2.default, { event: event })
+	      );
 	    }
 	  }]);
 	
@@ -32305,61 +32340,6 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _axios = __webpack_require__(269);
-	
-	var _axios2 = _interopRequireDefault(_axios);
-	
-	var _reactRedux = __webpack_require__(250);
-	
-	var _EventNewContainer = __webpack_require__(311);
-	
-	var _EventNewContainer2 = _interopRequireDefault(_EventNewContainer);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var EventNew = function (_Component) {
-		_inherits(EventNew, _Component);
-	
-		function EventNew(props) {
-			_classCallCheck(this, EventNew);
-	
-			return _possibleConstructorReturn(this, (EventNew.__proto__ || Object.getPrototypeOf(EventNew)).call(this, props));
-		}
-	
-		_createClass(EventNew, [{
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(_EventNewContainer2.default, null);
-			}
-		}]);
-	
-		return EventNew;
-	}(_react.Component);
-	
-	exports.default = EventNew;
-
-/***/ },
-/* 311 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	
@@ -32375,7 +32355,7 @@
 	
 	var _events = __webpack_require__(306);
 	
-	var _EventForm = __webpack_require__(312);
+	var _EventForm = __webpack_require__(311);
 	
 	var _EventForm2 = _interopRequireDefault(_EventForm);
 	
@@ -32387,45 +32367,48 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var EventNewContainer = function (_Component) {
-	  _inherits(EventNewContainer, _Component);
+	var EventUpdateContainer = function (_Component) {
+	  _inherits(EventUpdateContainer, _Component);
 	
-	  function EventNewContainer(props) {
-	    _classCallCheck(this, EventNewContainer);
+	  function EventUpdateContainer(props) {
+	    _classCallCheck(this, EventUpdateContainer);
 	
-	    return _possibleConstructorReturn(this, (EventNewContainer.__proto__ || Object.getPrototypeOf(EventNewContainer)).call(this, props));
+	    return _possibleConstructorReturn(this, (EventUpdateContainer.__proto__ || Object.getPrototypeOf(EventUpdateContainer)).call(this, props));
 	  }
 	
-	  _createClass(EventNewContainer, [{
+	  _createClass(EventUpdateContainer, [{
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(_EventForm2.default, { handleSubmit: this.props.createEvent });
+	      console.log("in update container", this.props.event);
+	      return _react2.default.createElement(_EventForm2.default, { event: this.props.event, handleSubmit: this.props.updateEvent });
 	    }
 	  }]);
 	
-	  return EventNewContainer;
+	  return EventUpdateContainer;
 	}(_react.Component);
 	
-	EventNewContainer.propTypes = {};
+	EventUpdateContainer.propTypes = {
+	  event: _react.PropTypes.object
+	};
 	
 	var mapStateToProps = function mapStateToProps(state) {
-	  return {};
+	  return { updatedEvent: state.events.updatedEvent };
 	};
 	
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
-	    createEvent: function createEvent(event) {
-	      dispatch((0, _events.createEvent)(event)).then(function (res) {
-	        return !res.error ? dispatch((0, _events.createEventSuccess)(res.payload)) : dispatch((0, _events.createEventFailure)(res.payload));
+	    updateEvent: function updateEvent(event) {
+	      dispatch((0, _events.updateEvent)(undefined.props.event.id, event)).then(function (res) {
+	        return !res.error ? dispatch((0, _events.updateEventSuccess)(res.payload)) : dispatch((0, _events.updateEventFailure)(res.payload));
 	      });
 	    }
 	  };
 	};
 	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(EventNewContainer);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(EventUpdateContainer);
 
 /***/ },
-/* 312 */
+/* 311 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32460,11 +32443,11 @@
 	
 	    _this.state = {
 	      form: {
-	        title: 'Halloween Dark Night',
-	        description: 'Come dressed up in costumes and have fun',
-	        start_date: '2016-10-31 23:30',
-	        end_date: '2016-11-01 4:30',
-	        businessId: 1
+	        title: '',
+	        description: '',
+	        start_date: '',
+	        end_date: '',
+	        venueId: ''
 	      }
 	    };
 	    _this.onChange = _this.onChange.bind(_this);
@@ -32476,7 +32459,6 @@
 	    key: 'onSubmit',
 	    value: function onSubmit(e) {
 	      e.preventDefault();
-	      var form = this.state.form;
 	
 	      console.log("this is taget", this.state.form);
 	      this.props.handleSubmit(form);
@@ -32493,17 +32475,26 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      console.log("form init val", this.props.event);
+	      console.log("state", this.state.form);
+	      var _props$event = this.props.event;
+	      var title = _props$event.title;
+	      var description = _props$event.description;
+	      var start_date = _props$event.start_date;
+	      var end_date = _props$event.end_date;
+	      var venueId = _props$event.venueId;
+	
 	      return _react2.default.createElement(
 	        'div',
 	        null,
 	        _react2.default.createElement(
 	          'form',
 	          { onSubmit: this.onSubmit },
-	          _react2.default.createElement('input', { type: 'text', name: 'title', value: this.state.form.title, onChange: this.onChange }),
-	          _react2.default.createElement('input', { type: 'text', name: 'description', value: this.state.form.description, onChange: this.onChange }),
-	          _react2.default.createElement('input', { type: 'text', name: 'start_date', value: this.state.form.start_date, onChange: this.onChange }),
-	          _react2.default.createElement('input', { type: 'text', name: 'end_date', value: this.state.form.end_date, onChange: this.onChange }),
-	          _react2.default.createElement('input', { type: 'number', name: 'businessId', value: this.state.form.businessId, onChange: this.onChange }),
+	          _react2.default.createElement('input', { type: 'text', name: 'title', value: title, onChange: this.onChange }),
+	          _react2.default.createElement('input', { type: 'text', name: 'description', value: description, onChange: this.onChange }),
+	          _react2.default.createElement('input', { type: 'text', name: 'start_date', value: start_date, onChange: this.onChange }),
+	          _react2.default.createElement('input', { type: 'text', name: 'end_date', value: end_date, onChange: this.onChange }),
+	          _react2.default.createElement('input', { type: 'number', name: 'venueId', value: venueId, onChange: this.onChange }),
 	          _react2.default.createElement(
 	            'button',
 	            { type: 'submit' },
@@ -32518,13 +32509,147 @@
 	}(_react.Component);
 	
 	EventForm.propTypes = {
-	  handleSubmit: _react.PropTypes.func
+	  handleSubmit: _react.PropTypes.func,
+	  event: _react.PropTypes.object
 	};
 	
 	exports.default = EventForm;
 
 /***/ },
+/* 312 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _axios = __webpack_require__(269);
+	
+	var _axios2 = _interopRequireDefault(_axios);
+	
+	var _reactRedux = __webpack_require__(250);
+	
+	var _EventNewContainer = __webpack_require__(313);
+	
+	var _EventNewContainer2 = _interopRequireDefault(_EventNewContainer);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var EventNew = function (_Component) {
+		_inherits(EventNew, _Component);
+	
+		function EventNew(props) {
+			_classCallCheck(this, EventNew);
+	
+			return _possibleConstructorReturn(this, (EventNew.__proto__ || Object.getPrototypeOf(EventNew)).call(this, props));
+		}
+	
+		_createClass(EventNew, [{
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(_EventNewContainer2.default, null);
+			}
+		}]);
+	
+		return EventNew;
+	}(_react.Component);
+	
+	exports.default = EventNew;
+
+/***/ },
 /* 313 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(250);
+	
+	var _reactRouter = __webpack_require__(172);
+	
+	var _events = __webpack_require__(306);
+	
+	var _EventForm = __webpack_require__(311);
+	
+	var _EventForm2 = _interopRequireDefault(_EventForm);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var EventNewContainer = function (_Component) {
+	  _inherits(EventNewContainer, _Component);
+	
+	  function EventNewContainer(props) {
+	    _classCallCheck(this, EventNewContainer);
+	
+	    return _possibleConstructorReturn(this, (EventNewContainer.__proto__ || Object.getPrototypeOf(EventNewContainer)).call(this, props));
+	  }
+	
+	  _createClass(EventNewContainer, [{
+	    key: 'render',
+	    value: function render() {
+	      var initForm = {
+	        title: "",
+	        description: "",
+	        start_date: '2016-03-02 23:30',
+	        end_date: '2016-03-03 4:30',
+	        venueId: 0
+	      };
+	      return _react2.default.createElement(_EventForm2.default, { event: initForm, handleSubmit: this.props.createEvent });
+	    }
+	  }]);
+	
+	  return EventNewContainer;
+	}(_react.Component);
+	
+	EventNewContainer.propTypes = {};
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {};
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    createEvent: function createEvent(event) {
+	      dispatch((0, _events.createEvent)(event)).then(function (res) {
+	        return !res.error ? dispatch((0, _events.createEventSuccess)(res.payload)) : dispatch((0, _events.createEventFailure)(res.payload));
+	      });
+	    }
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(EventNewContainer);
+
+/***/ },
+/* 314 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32535,11 +32660,11 @@
 	
 	var _redux = __webpack_require__(235);
 	
-	var _venues = __webpack_require__(314);
+	var _venues = __webpack_require__(315);
 	
 	var _venues2 = _interopRequireDefault(_venues);
 	
-	var _events = __webpack_require__(315);
+	var _events = __webpack_require__(316);
 	
 	var _events2 = _interopRequireDefault(_events);
 	
@@ -32556,7 +32681,7 @@
 	exports.default = rootReducer;
 
 /***/ },
-/* 314 */
+/* 315 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -32611,7 +32736,7 @@
 	exports.default = venues;
 
 /***/ },
-/* 315 */
+/* 316 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32634,6 +32759,11 @@
 			loading: false
 		},
 		newEvent: {
+			event: null,
+			error: null,
+			loading: false
+		},
+		updatedEvent: {
 			event: null,
 			error: null,
 			loading: false
@@ -32667,6 +32797,13 @@
 			case _events.CREATE_EVENT_ERROR:
 				error = action.payload.data || { message: action.payload.message };
 				return Object.assign({}, state, { newEvent: { events: null, error: error, loading: false } });
+			case _events.UPDATE_EVENT:
+				return Object.assign({}, state, { updatedEvent: { event: {}, error: null, loading: true } });
+			case _events.UPDATE_EVENT_SUCCESS:
+				return Object.assign({}, state, { updatedEvent: { event: action.payload.data, error: null, loading: false } });
+			case _events.UPDATE_EVENT_ERROR:
+				error = action.payload.data || { message: action.payload.message };
+				return Object.assign({}, state, { updatedEvent: { event: {}, error: error, loading: false } });
 			default:
 				return state;
 		}

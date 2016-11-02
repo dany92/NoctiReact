@@ -12,6 +12,11 @@ export const CREATE_EVENT = 'CREATE_EVENT';
 export const CREATE_EVENT_SUCCESS = 'CREATE_EVENT_SUCCESS';
 export const CREATE_EVENT_ERROR = 'CREATE_EVENT_ERROR';
 
+export const UPDATE_EVENT = 'UPDATE_EVENT';
+export const UPDATE_EVENT_SUCCESS = 'UPDATE_EVENT_SUCCESS';
+export const UPDATE_EVENT_ERROR = 'UPDATE_EVENT_ERROR';
+
+
 export const fetchEvents = () => {
 	const request = axios.get("/api/events");
 	return {
@@ -74,6 +79,28 @@ export const createEventSuccess = (newEvent) => {
 export const createEventFailure = (error) => {
 	return {
 		type: CREATE_EVENT_ERROR,
+		payload: error,
+	};
+}
+
+export const updateEvent = (id, event) => {
+	const request = axios.put(`/api/events/${id}`, event);
+	return {
+		type: UPDATE_EVENT,
+		payload: request,
+	};
+}
+
+export const updateEventSuccess = (updatedEvent) => {
+	return {
+		type: UPDATE_EVENT_SUCCESS,
+		payload: updatedEvent,
+	};
+}
+
+export const updateEventFailure = (error) => {
+	return {
+		type: UPDATE_EVENT_ERROR,
 		payload: error,
 	};
 }

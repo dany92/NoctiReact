@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from "react";
 import { connect } from 'react-redux';
 
 import EventDetails from '../../components/EventDetails';
+import EventUpdateContainer from '../EventUpdateContainer';
 import { fetchOneEvent, fetchOneEventSuccess, fetchOneEventFailure } from '../../actions/events';
 
 class EventDetailsContainer extends Component {
@@ -16,7 +17,10 @@ class EventDetailsContainer extends Component {
   render() {
     const { event, loading, error } = this.props.currentEvent;
     return (
-      <EventDetails event={event} />
+      <div>
+        <EventDetails event={event} />
+        <EventUpdateContainer event={event} />
+      </div>
     );
   }
 }

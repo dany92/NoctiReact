@@ -1,0 +1,6 @@
+{
+  "name": "EventUpdateContainer",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./EventUpdateContainer.js"
+}

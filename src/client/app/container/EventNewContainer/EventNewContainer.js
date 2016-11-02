@@ -17,7 +17,7 @@ class EventNewContainer extends Component {
       description: "",
       start_date: '2016-03-02 23:30',
       end_date: '2016-03-03 4:30',
-      venueId: 0
+      venueId: 1
     };
     return (
       <EventForm event={initForm} handleSubmit={this.props.createEvent} />

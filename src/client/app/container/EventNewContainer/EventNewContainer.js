@@ -9,25 +9,11 @@ import EventForm from '../../components/EventForm';
 class EventNewContainer extends Component {
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleSubmit(e) {
-    e.preventDefault();
-    const example = {
-        title: 'Halloween Dark Night',
-        description: 'Come dressed up in costumes and have fun',
-        start_date: '2016-10-31 23:30',
-        end_date: '2016-11-01 4:30',
-        businessId: 1
-    };
-    this.props.createEvent(example);
-    browserHistory.push('/events');
   }
 
   render() {
     return (
-      <EventForm handleSubmit={this.handleSubmit} />
+      <EventForm handleSubmit={this.props.createEvent} />
     );
   }
 }

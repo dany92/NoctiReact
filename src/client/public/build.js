@@ -32393,30 +32393,13 @@
 	  function EventNewContainer(props) {
 	    _classCallCheck(this, EventNewContainer);
 	
-	    var _this = _possibleConstructorReturn(this, (EventNewContainer.__proto__ || Object.getPrototypeOf(EventNewContainer)).call(this, props));
-	
-	    _this.handleSubmit = _this.handleSubmit.bind(_this);
-	    return _this;
+	    return _possibleConstructorReturn(this, (EventNewContainer.__proto__ || Object.getPrototypeOf(EventNewContainer)).call(this, props));
 	  }
 	
 	  _createClass(EventNewContainer, [{
-	    key: 'handleSubmit',
-	    value: function handleSubmit(e) {
-	      e.preventDefault();
-	      var example = {
-	        title: 'Halloween Dark Night',
-	        description: 'Come dressed up in costumes and have fun',
-	        start_date: '2016-10-31 23:30',
-	        end_date: '2016-11-01 4:30',
-	        businessId: 1
-	      };
-	      this.props.createEvent(example);
-	      _reactRouter.browserHistory.push('/events');
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(_EventForm2.default, { handleSubmit: this.handleSubmit });
+	      return _react2.default.createElement(_EventForm2.default, { handleSubmit: this.props.createEvent });
 	    }
 	  }]);
 	
@@ -32445,7 +32428,7 @@
 /* 312 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -32456,6 +32439,8 @@
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(172);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -32471,22 +32456,58 @@
 	  function EventForm(props) {
 	    _classCallCheck(this, EventForm);
 	
-	    return _possibleConstructorReturn(this, (EventForm.__proto__ || Object.getPrototypeOf(EventForm)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (EventForm.__proto__ || Object.getPrototypeOf(EventForm)).call(this, props));
+	
+	    _this.state = {
+	      form: {
+	        title: 'Halloween Dark Night',
+	        description: 'Come dressed up in costumes and have fun',
+	        start_date: '2016-10-31 23:30',
+	        end_date: '2016-11-01 4:30',
+	        businessId: 1
+	      }
+	    };
+	    _this.onChange = _this.onChange.bind(_this);
+	    _this.onSubmit = _this.onSubmit.bind(_this);
+	    return _this;
 	  }
 	
 	  _createClass(EventForm, [{
-	    key: "render",
+	    key: 'onSubmit',
+	    value: function onSubmit(e) {
+	      e.preventDefault();
+	      var form = this.state.form;
+	
+	      console.log("this is taget", this.state.form);
+	      this.props.handleSubmit(form);
+	      _reactRouter.browserHistory.push('/events');
+	    }
+	  }, {
+	    key: 'onChange',
+	    value: function onChange(e) {
+	      console.log("currVal", this.state.form[e.target.name]);
+	      console.log("tobechanged", e.target.value);
+	      this.state.form[e.target.name] = e.target.value;
+	      this.setState({ form: this.state.form });
+	    }
+	  }, {
+	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        "div",
+	        'div',
 	        null,
 	        _react2.default.createElement(
-	          "form",
-	          { onSubmit: this.props.handleSubmit },
+	          'form',
+	          { onSubmit: this.onSubmit },
+	          _react2.default.createElement('input', { type: 'text', name: 'title', value: this.state.form.title, onChange: this.onChange }),
+	          _react2.default.createElement('input', { type: 'text', name: 'description', value: this.state.form.description, onChange: this.onChange }),
+	          _react2.default.createElement('input', { type: 'text', name: 'start_date', value: this.state.form.start_date, onChange: this.onChange }),
+	          _react2.default.createElement('input', { type: 'text', name: 'end_date', value: this.state.form.end_date, onChange: this.onChange }),
+	          _react2.default.createElement('input', { type: 'number', name: 'businessId', value: this.state.form.businessId, onChange: this.onChange }),
 	          _react2.default.createElement(
-	            "button",
-	            { type: "submit" },
-	            "Create new event"
+	            'button',
+	            { type: 'submit' },
+	            'Create new event'
 	          )
 	        )
 	      );

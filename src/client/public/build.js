@@ -31930,7 +31930,7 @@
 /* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -31943,6 +31943,10 @@
 	var _react2 = _interopRequireDefault(_react);
 	
 	var _reactRouter = __webpack_require__(172);
+	
+	var _DeleteButtonContainer = __webpack_require__(306);
+	
+	var _DeleteButtonContainer2 = _interopRequireDefault(_DeleteButtonContainer);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -31962,26 +31966,27 @@
 	  }
 	
 	  _createClass(EventItem, [{
-	    key: "render",
+	    key: 'render',
 	    value: function render() {
-	      var detailsUrl = "/events/" + this.props.event.id;
+	      var detailsUrl = '/events/' + this.props.event.id;
 	      return _react2.default.createElement(
-	        "div",
+	        'div',
 	        null,
 	        _react2.default.createElement(
-	          "div",
+	          'div',
 	          null,
 	          this.props.event.title
 	        ),
 	        _react2.default.createElement(
-	          "button",
+	          'button',
 	          null,
 	          _react2.default.createElement(
 	            _reactRouter.Link,
 	            { to: detailsUrl },
-	            "Details"
+	            'Details'
 	          )
-	        )
+	        ),
+	        _react2.default.createElement(_DeleteButtonContainer2.default, { id: this.props.event.id })
 	      );
 	    }
 	  }]);
@@ -32049,15 +32054,15 @@
 	}(_react.Component);
 	
 	DeleteButtonContainer.propTypes = {
-	  id: _react.PropTypes.string
+	  id: _react.PropTypes.number
 	};
 	
 	var mapStateToProps = function mapStateToProps(state) {
 	  return {};
 	};
 	
-	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  var eventId = undefined.props.id;
+	var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+	  var eventId = ownProps.id;
 	  return {
 	    deleteEvent: function deleteEvent() {
 	      dispatch((0, _events.deleteEvent)(eventId)).then(function (res) {

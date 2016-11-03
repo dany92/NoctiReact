@@ -19,15 +19,15 @@ class DeleteButtonContainer extends Component {
 }
 
 DeleteButtonContainer.propTypes = {
-  id: PropTypes.string
+  id: PropTypes.number
 };
 
 const mapStateToProps = (state) => {
   return {};
 }
 
-const mapDispatchToProps = (dispatch) => {
-  const eventId = this.props.id;
+const mapDispatchToProps = (dispatch, ownProps) => {
+  const eventId = ownProps.id;
   return {
     deleteEvent: () => {
       dispatch(deleteEvent(eventId))

@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from "react";
 import { Link } from 'react-router';
 
+import DeleteButtonContainer from '../../container/DeleteButtonContainer';
+
 class EventItem extends Component {
   constructor(props) {
     super(props);
@@ -18,6 +20,7 @@ class EventItem extends Component {
             Details
           </Link>
         </button>
+        <DeleteButtonContainer id={this.props.event.id} />
       </div>
     );
   }

@@ -26,21 +26,6 @@ const INIT_STATE = {
 		event: {},
 		error: null,
 		loading: false
-	},
-	newEvent: {
-		event: null,
-		error: null,
-		loading: false
-	},
-	updatedEvent: {
-		event: null,
-		error: null,
-		loading: false
-	},
-	deletedEvent: {
-		event: null,
-		error: null,
-		loading: false
 	}
 };
 
@@ -63,13 +48,12 @@ const events = (state = INIT_STATE, action) => {
 			error = action.payload.data || {message: action.payload.message}
 			return Object.assign({}, state, {currentEvent: {event: {}, error: error, loading: false}});
 		case CREATE_EVENT:
-			return Object.assign({}, state, {newEvent: Object.assign({}, state.newEvent, {loading: true})});
+			return Object.assign({}, state, {currentEvent: Object.assign({}, state.currentEvent, {loading: true})});
 		case CREATE_EVENT_SUCCESS:
-			return Object.assign({}, state, {newEvent: {event: action.payload.data, error: null, loading: false}});
 			const createdEvent = action.payload.data;
 			currentEventsList = state.eventsList.events;
-			return Object.assign({}, state, {eventsList: 
-				{
+			return Object.assign({}, state, {currentEvent: {event: {}, error: null, loading: false}}, 
+				{eventsList: {
 					events: [...currentEventsList, createdEvent],
 					error: null,
 					loading: false
@@ -77,14 +61,15 @@ const events = (state = INIT_STATE, action) => {
 			});
 		case CREATE_EVENT_ERROR:
 			error = action.payload.data || {message: action.payload.message}
-			return Object.assign({}, state, {newEvent: {events: null, error: error, loading: false}});
+			return Object.assign({}, state, {currentEvent: {events: {}, error: error, loading: false}});
 		case UPDATE_EVENT:
-			return Object.assign({}, state, {updatedEvent: {event: {}, error: null, loading: true}});
+			return Object.assign({}, state, {currentEvent: {event: {}, error: null, loading: true}});
 		case UPDATE_EVENT_SUCCESS:
 			const updatedEvent = action.payload.data;
 			currentEventsList = state.eventsList.events;
-			return Object.assign({}, state, {eventsList: 
-				{
+			return Object.assign({}, state, {currentEvent: 
+				{event: {}, error: null, loading: false}}, 
+				{eventsList: {
 					events: currentEventsList.map(event => {
 						if(event.id === updatedEvent.id) return updatedEvent;
 						return event;
@@ -95,17 +80,22 @@ const events = (state = INIT_STATE, action) => {
 			});
 		case UPDATE_EVENT_ERROR:
 			error = action.payload.data || {message: action.payload.message}
-			return Object.assign({}, state, {updatedEvent: {event: {}, error: error, loading: false}});
+			return Object.assign({}, state, {currentEvent: {event: {}, error: error, loading: false}});
 		case DELETE_EVENT:
-			return Object.assign({}, state, {deletedEvent: {event: {}, error: null, loading: true}});
+			return Object.assign({}, state, {currentEvent: {event: {}, error: null, loading: true}});
 		case DELETE_EVENT_SUCCESS:
+			const deletedId = action.payload.data.id;
 			currentEventsList = state.eventsList.events;
-			return Object.assign({}, state, {eventsList: {events: currentEventsList.filter(event => event.id !== action.payload.data.id),
-				error: null, loading: false}
+			return Object.assign({}, state, {currentEvent: 
+				{event: {}, error: null, loading: false}},
+				{eventsList: {
+					events: currentEventsList.filter(event => event.id !== deletedId),
+					error: null, loading: false
+				}
 			});
 		case DELETE_EVENT_ERROR:
 			error = action.payload.data || {message: action.payload.message}
-			return Object.assign({}, state, {deletedEvent: {event: {}, error: error, loading: false}});
+			return Object.assign({}, state, {currentEvent: {event: {}, error: error, loading: false}});
 		default:
 			return state;
 	}

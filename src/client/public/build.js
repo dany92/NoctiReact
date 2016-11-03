@@ -32944,21 +32944,6 @@
 			event: {},
 			error: null,
 			loading: false
-		},
-		newEvent: {
-			event: null,
-			error: null,
-			loading: false
-		},
-		updatedEvent: {
-			event: null,
-			error: null,
-			loading: false
-		},
-		deletedEvent: {
-			event: null,
-			error: null,
-			loading: false
 		}
 	};
 	
@@ -32999,16 +32984,13 @@
 					};
 				case _events.CREATE_EVENT:
 					return {
-						v: Object.assign({}, state, { newEvent: Object.assign({}, state.newEvent, { loading: true }) })
+						v: Object.assign({}, state, { currentEvent: Object.assign({}, state.currentEvent, { loading: true }) })
 					};
 				case _events.CREATE_EVENT_SUCCESS:
-					return {
-						v: Object.assign({}, state, { newEvent: { event: action.payload.data, error: null, loading: false } })
-					};
 					var createdEvent = action.payload.data;
 					currentEventsList = state.eventsList.events;
 					return {
-						v: Object.assign({}, state, { eventsList: {
+						v: Object.assign({}, state, { currentEvent: { event: {}, error: null, loading: false } }, { eventsList: {
 								events: [].concat(_toConsumableArray(currentEventsList), [createdEvent]),
 								error: null,
 								loading: false
@@ -33018,17 +33000,17 @@
 				case _events.CREATE_EVENT_ERROR:
 					error = action.payload.data || { message: action.payload.message };
 					return {
-						v: Object.assign({}, state, { newEvent: { events: null, error: error, loading: false } })
+						v: Object.assign({}, state, { currentEvent: { events: {}, error: error, loading: false } })
 					};
 				case _events.UPDATE_EVENT:
 					return {
-						v: Object.assign({}, state, { updatedEvent: { event: {}, error: null, loading: true } })
+						v: Object.assign({}, state, { currentEvent: { event: {}, error: null, loading: true } })
 					};
 				case _events.UPDATE_EVENT_SUCCESS:
 					var updatedEvent = action.payload.data;
 					currentEventsList = state.eventsList.events;
 					return {
-						v: Object.assign({}, state, { eventsList: {
+						v: Object.assign({}, state, { currentEvent: { event: {}, error: null, loading: false } }, { eventsList: {
 								events: currentEventsList.map(function (event) {
 									if (event.id === updatedEvent.id) return updatedEvent;
 									return event;
@@ -33041,25 +33023,28 @@
 				case _events.UPDATE_EVENT_ERROR:
 					error = action.payload.data || { message: action.payload.message };
 					return {
-						v: Object.assign({}, state, { updatedEvent: { event: {}, error: error, loading: false } })
+						v: Object.assign({}, state, { currentEvent: { event: {}, error: error, loading: false } })
 					};
 				case _events.DELETE_EVENT:
 					return {
-						v: Object.assign({}, state, { deletedEvent: { event: {}, error: null, loading: true } })
+						v: Object.assign({}, state, { currentEvent: { event: {}, error: null, loading: true } })
 					};
 				case _events.DELETE_EVENT_SUCCESS:
+					var deletedId = action.payload.data.id;
 					currentEventsList = state.eventsList.events;
 					return {
-						v: Object.assign({}, state, { eventsList: { events: currentEventsList.filter(function (event) {
-									return event.id !== action.payload.data.id;
+						v: Object.assign({}, state, { currentEvent: { event: {}, error: null, loading: false } }, { eventsList: {
+								events: currentEventsList.filter(function (event) {
+									return event.id !== deletedId;
 								}),
-								error: null, loading: false }
+								error: null, loading: false
+							}
 						})
 					};
 				case _events.DELETE_EVENT_ERROR:
 					error = action.payload.data || { message: action.payload.message };
 					return {
-						v: Object.assign({}, state, { deletedEvent: { event: {}, error: error, loading: false } })
+						v: Object.assign({}, state, { currentEvent: { event: {}, error: error, loading: false } })
 					};
 				default:
 					return {

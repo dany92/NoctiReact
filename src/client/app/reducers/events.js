@@ -10,7 +10,10 @@ import {
 	CREATE_EVENT_ERROR,
 	UPDATE_EVENT,
 	UPDATE_EVENT_SUCCESS,
-	UPDATE_EVENT_ERROR 
+	UPDATE_EVENT_ERROR,
+	DELETE_EVENT,
+	DELETE_EVENT_SUCCESS,
+	DELETE_EVENT_ERROR
 } from '../actions/events';
 
 const INIT_STATE = {
@@ -30,6 +33,11 @@ const INIT_STATE = {
 		loading: false
 	},
 	updatedEvent: {
+		event: null,
+		error: null,
+		loading: false
+	},
+	deletedEvent: {
 		event: null,
 		error: null,
 		loading: false
@@ -67,6 +75,13 @@ const events = (state = INIT_STATE, action) => {
 		case UPDATE_EVENT_ERROR:
 			error = action.payload.data || {message: action.payload.message}
 			return Object.assign({}, state, {updatedEvent: {event: {}, error: error, loading: false}});
+		case DELETE_EVENT:
+			return Object.assign({}, state, {deletedEvent: {event: {}, error: null, loading: true}});
+		case DELETE_EVENT_SUCCESS:
+			return Object.assign({}, state, {deletedEvent: {event: action.payload.data, error: null, loading: false}});
+		case DELETE_EVENT_ERROR:
+			error = action.payload.data || {message: action.payload.message}
+			return Object.assign({}, state, {deletedEvent: {event: {}, error: error, loading: false}});
 		default:
 			return state;
 	}

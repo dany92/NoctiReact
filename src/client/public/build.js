@@ -88,15 +88,15 @@
 	
 	var _Event2 = _interopRequireDefault(_Event);
 	
-	var _EventDetails = __webpack_require__(307);
+	var _EventDetails = __webpack_require__(309);
 	
 	var _EventDetails2 = _interopRequireDefault(_EventDetails);
 	
-	var _EventNew = __webpack_require__(312);
+	var _EventNew = __webpack_require__(314);
 	
 	var _EventNew2 = _interopRequireDefault(_EventNew);
 	
-	var _reducers = __webpack_require__(314);
+	var _reducers = __webpack_require__(316);
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
@@ -31798,7 +31798,7 @@
 	
 	var _EventList2 = _interopRequireDefault(_EventList);
 	
-	var _events = __webpack_require__(306);
+	var _events = __webpack_require__(307);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -31862,7 +31862,7 @@
 /* 304 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -31877,6 +31877,10 @@
 	var _EventItem = __webpack_require__(305);
 	
 	var _EventItem2 = _interopRequireDefault(_EventItem);
+	
+	var _DeleteButtonContainer = __webpack_require__(306);
+	
+	var _DeleteButtonContainer2 = _interopRequireDefault(_DeleteButtonContainer);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -31896,15 +31900,15 @@
 	  }
 	
 	  _createClass(EventList, [{
-	    key: "componentWillMount",
+	    key: 'componentWillMount',
 	    value: function componentWillMount() {
 	      this.props.events;
 	    }
 	  }, {
-	    key: "render",
+	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        "div",
+	        'div',
 	        null,
 	        this.props.events.map(function (event) {
 	          return _react2.default.createElement(_EventItem2.default, { key: event.id, event: event });
@@ -31998,9 +32002,85 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(250);
+	
+	var _reactRouter = __webpack_require__(172);
+	
+	var _events = __webpack_require__(307);
+	
+	var _DeleteButton = __webpack_require__(308);
+	
+	var _DeleteButton2 = _interopRequireDefault(_DeleteButton);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var DeleteButtonContainer = function (_Component) {
+	  _inherits(DeleteButtonContainer, _Component);
+	
+	  function DeleteButtonContainer(props) {
+	    _classCallCheck(this, DeleteButtonContainer);
+	
+	    return _possibleConstructorReturn(this, (DeleteButtonContainer.__proto__ || Object.getPrototypeOf(DeleteButtonContainer)).call(this, props));
+	  }
+	
+	  _createClass(DeleteButtonContainer, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(_DeleteButton2.default, { handleClick: this.props.deleteEvent });
+	    }
+	  }]);
+	
+	  return DeleteButtonContainer;
+	}(_react.Component);
+	
+	DeleteButtonContainer.propTypes = {
+	  id: _react.PropTypes.string
+	};
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {};
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  var eventId = undefined.props.id;
+	  return {
+	    deleteEvent: function deleteEvent() {
+	      dispatch((0, _events.deleteEvent)(eventId)).then(function (res) {
+	        return !res.error ? dispatch((0, _events.deleteEventSuccess)(res.payload)) : dispatch((0, _events.deleteEventFailure)(res.payload));
+	      }).then(function () {
+	        _reactRouter.browserHistory.push('/events');
+	      });
+	    }
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(DeleteButtonContainer);
+
+/***/ },
+/* 307 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.updateEventFailure = exports.updateEventSuccess = exports.updateEvent = exports.createEventFailure = exports.createEventSuccess = exports.createEvent = exports.fetchOneEventFailure = exports.fetchOneEventSuccess = exports.fetchOneEvent = exports.fetchEventsFailure = exports.fetchEventsSuccess = exports.fetchEvents = exports.UPDATE_EVENT_ERROR = exports.UPDATE_EVENT_SUCCESS = exports.UPDATE_EVENT = exports.CREATE_EVENT_ERROR = exports.CREATE_EVENT_SUCCESS = exports.CREATE_EVENT = exports.FETCH_ONE_EVENT_ERROR = exports.FETCH_ONE_EVENT_SUCCESS = exports.FETCH_ONE_EVENT = exports.FETCH_EVENTS_ERROR = exports.FETCH_EVENTS_SUCCESS = exports.FETCH_EVENTS = undefined;
+	exports.deleteEventFailure = exports.deleteEventSuccess = exports.deleteEvent = exports.updateEventFailure = exports.updateEventSuccess = exports.updateEvent = exports.createEventFailure = exports.createEventSuccess = exports.createEvent = exports.fetchOneEventFailure = exports.fetchOneEventSuccess = exports.fetchOneEvent = exports.fetchEventsFailure = exports.fetchEventsSuccess = exports.fetchEvents = exports.DELETE_EVENT_ERROR = exports.DELETE_EVENT_SUCCESS = exports.DELETE_EVENT = exports.UPDATE_EVENT_ERROR = exports.UPDATE_EVENT_SUCCESS = exports.UPDATE_EVENT = exports.CREATE_EVENT_ERROR = exports.CREATE_EVENT_SUCCESS = exports.CREATE_EVENT = exports.FETCH_ONE_EVENT_ERROR = exports.FETCH_ONE_EVENT_SUCCESS = exports.FETCH_ONE_EVENT = exports.FETCH_EVENTS_ERROR = exports.FETCH_EVENTS_SUCCESS = exports.FETCH_EVENTS = undefined;
 	
 	var _axios = __webpack_require__(269);
 	
@@ -32023,6 +32103,10 @@
 	var UPDATE_EVENT = exports.UPDATE_EVENT = 'UPDATE_EVENT';
 	var UPDATE_EVENT_SUCCESS = exports.UPDATE_EVENT_SUCCESS = 'UPDATE_EVENT_SUCCESS';
 	var UPDATE_EVENT_ERROR = exports.UPDATE_EVENT_ERROR = 'UPDATE_EVENT_ERROR';
+	
+	var DELETE_EVENT = exports.DELETE_EVENT = 'DELETE_EVENT';
+	var DELETE_EVENT_SUCCESS = exports.DELETE_EVENT_SUCCESS = 'DELETE_EVENT_SUCCESS';
+	var DELETE_EVENT_ERROR = exports.DELETE_EVENT_ERROR = 'DELETE_EVENT_ERROR';
 	
 	var fetchEvents = exports.fetchEvents = function fetchEvents() {
 		var request = _axios2.default.get("/api/events");
@@ -32111,9 +32195,96 @@
 			payload: error
 		};
 	};
+	
+	var deleteEvent = exports.deleteEvent = function deleteEvent(id) {
+		var request = _axios2.default.delete('/api/events/' + id);
+		return {
+			type: DELETE_EVENT,
+			payload: request
+		};
+	};
+	
+	var deleteEventSuccess = exports.deleteEventSuccess = function deleteEventSuccess(deletedEvent) {
+		return {
+			type: DELETE_EVENT_SUCCESS,
+			payload: deletedEvent
+		};
+	};
+	
+	var deleteEventFailure = exports.deleteEventFailure = function deleteEventFailure(error) {
+		return {
+			type: DELETE_EVENT_ERROR,
+			payload: error
+		};
+	};
 
 /***/ },
-/* 307 */
+/* 308 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var DeleteButton = function (_Component) {
+	  _inherits(DeleteButton, _Component);
+	
+	  function DeleteButton(props) {
+	    _classCallCheck(this, DeleteButton);
+	
+	    var _this = _possibleConstructorReturn(this, (DeleteButton.__proto__ || Object.getPrototypeOf(DeleteButton)).call(this, props));
+	
+	    _this.onClick = _this.onClick.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(DeleteButton, [{
+	    key: "onClick",
+	    value: function onClick() {
+	      this.props.handleClick();
+	    }
+	  }, {
+	    key: "render",
+	    value: function render() {
+	      return _react2.default.createElement(
+	        "div",
+	        null,
+	        _react2.default.createElement(
+	          "button",
+	          { type: "submit", onClick: this.onClick },
+	          "Delete"
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return DeleteButton;
+	}(_react.Component);
+	
+	DeleteButton.propTypes = {
+	  handleClick: _react.PropTypes.func
+	};
+	
+	exports.default = DeleteButton;
+
+/***/ },
+/* 309 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32134,7 +32305,7 @@
 	
 	var _reactRedux = __webpack_require__(250);
 	
-	var _EventDetailsContainer = __webpack_require__(308);
+	var _EventDetailsContainer = __webpack_require__(310);
 	
 	var _EventDetailsContainer2 = _interopRequireDefault(_EventDetailsContainer);
 	
@@ -32170,7 +32341,7 @@
 	exports.default = EventDetails;
 
 /***/ },
-/* 308 */
+/* 310 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32187,15 +32358,15 @@
 	
 	var _reactRedux = __webpack_require__(250);
 	
-	var _EventDetails = __webpack_require__(309);
+	var _EventDetails = __webpack_require__(311);
 	
 	var _EventDetails2 = _interopRequireDefault(_EventDetails);
 	
-	var _EventUpdateContainer = __webpack_require__(310);
+	var _EventUpdateContainer = __webpack_require__(312);
 	
 	var _EventUpdateContainer2 = _interopRequireDefault(_EventUpdateContainer);
 	
-	var _events = __webpack_require__(306);
+	var _events = __webpack_require__(307);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -32261,7 +32432,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(EventDetailsContainer);
 
 /***/ },
-/* 309 */
+/* 311 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -32334,7 +32505,7 @@
 	exports.default = EventDetails;
 
 /***/ },
-/* 310 */
+/* 312 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32353,9 +32524,9 @@
 	
 	var _reactRouter = __webpack_require__(172);
 	
-	var _events = __webpack_require__(306);
+	var _events = __webpack_require__(307);
 	
-	var _EventForm = __webpack_require__(311);
+	var _EventForm = __webpack_require__(313);
 	
 	var _EventForm2 = _interopRequireDefault(_EventForm);
 	
@@ -32410,7 +32581,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(EventUpdateContainer);
 
 /***/ },
-/* 311 */
+/* 313 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32521,7 +32692,7 @@
 	exports.default = EventForm;
 
 /***/ },
-/* 312 */
+/* 314 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32542,7 +32713,7 @@
 	
 	var _reactRedux = __webpack_require__(250);
 	
-	var _EventNewContainer = __webpack_require__(313);
+	var _EventNewContainer = __webpack_require__(315);
 	
 	var _EventNewContainer2 = _interopRequireDefault(_EventNewContainer);
 	
@@ -32576,7 +32747,7 @@
 	exports.default = EventNew;
 
 /***/ },
-/* 313 */
+/* 315 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32595,9 +32766,9 @@
 	
 	var _reactRouter = __webpack_require__(172);
 	
-	var _events = __webpack_require__(306);
+	var _events = __webpack_require__(307);
 	
-	var _EventForm = __webpack_require__(311);
+	var _EventForm = __webpack_require__(313);
 	
 	var _EventForm2 = _interopRequireDefault(_EventForm);
 	
@@ -32626,7 +32797,7 @@
 	        description: "",
 	        start_date: '2016-03-02 23:30',
 	        end_date: '2016-03-03 4:30',
-	        venueId: 0
+	        venueId: 1
 	      };
 	      return _react2.default.createElement(_EventForm2.default, { event: initForm, handleSubmit: this.props.createEvent });
 	    }
@@ -32656,7 +32827,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(EventNewContainer);
 
 /***/ },
-/* 314 */
+/* 316 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32667,11 +32838,11 @@
 	
 	var _redux = __webpack_require__(235);
 	
-	var _venues = __webpack_require__(315);
+	var _venues = __webpack_require__(317);
 	
 	var _venues2 = _interopRequireDefault(_venues);
 	
-	var _events = __webpack_require__(316);
+	var _events = __webpack_require__(318);
 	
 	var _events2 = _interopRequireDefault(_events);
 	
@@ -32688,7 +32859,7 @@
 	exports.default = rootReducer;
 
 /***/ },
-/* 315 */
+/* 317 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -32743,7 +32914,7 @@
 	exports.default = venues;
 
 /***/ },
-/* 316 */
+/* 318 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32752,7 +32923,7 @@
 		value: true
 	});
 	
-	var _events = __webpack_require__(306);
+	var _events = __webpack_require__(307);
 	
 	var INIT_STATE = {
 		eventsList: {
@@ -32771,6 +32942,11 @@
 			loading: false
 		},
 		updatedEvent: {
+			event: null,
+			error: null,
+			loading: false
+		},
+		deletedEvent: {
 			event: null,
 			error: null,
 			loading: false
@@ -32811,6 +32987,13 @@
 			case _events.UPDATE_EVENT_ERROR:
 				error = action.payload.data || { message: action.payload.message };
 				return Object.assign({}, state, { updatedEvent: { event: {}, error: error, loading: false } });
+			case _events.DELETE_EVENT:
+				return Object.assign({}, state, { deletedEvent: { event: {}, error: null, loading: true } });
+			case _events.DELETE_EVENT_SUCCESS:
+				return Object.assign({}, state, { deletedEvent: { event: action.payload.data, error: null, loading: false } });
+			case _events.DELETE_EVENT_ERROR:
+				error = action.payload.data || { message: action.payload.message };
+				return Object.assign({}, state, { deletedEvent: { event: {}, error: error, loading: false } });
 			default:
 				return state;
 		}

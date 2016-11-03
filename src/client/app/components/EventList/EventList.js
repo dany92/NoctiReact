@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from "react";
 
 import EventItem from '../EventItem';
+import DeleteButtonContainer from '../../container/DeleteButtonContainer';
 
 class EventList extends Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class EventList extends Component {
     return (
       <div>
         { this.props.events.map((event) => 
-            <EventItem key={event.id} event={event} /> 
+            <EventItem key={event.id} event={event} />
         )}
       </div>
     );

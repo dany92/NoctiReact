@@ -1,0 +1,6 @@
+{
+  "name": "DeleteButtonContainer",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./DeleteButtonContainer.js"
+}

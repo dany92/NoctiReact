@@ -16,6 +16,9 @@ export const UPDATE_EVENT = 'UPDATE_EVENT';
 export const UPDATE_EVENT_SUCCESS = 'UPDATE_EVENT_SUCCESS';
 export const UPDATE_EVENT_ERROR = 'UPDATE_EVENT_ERROR';
 
+export const DELETE_EVENT = 'DELETE_EVENT';
+export const DELETE_EVENT_SUCCESS = 'DELETE_EVENT_SUCCESS';
+export const DELETE_EVENT_ERROR = 'DELETE_EVENT_ERROR';
 
 export const fetchEvents = () => {
 	const request = axios.get("/api/events");
@@ -101,6 +104,28 @@ export const updateEventSuccess = (updatedEvent) => {
 export const updateEventFailure = (error) => {
 	return {
 		type: UPDATE_EVENT_ERROR,
+		payload: error,
+	};
+}
+
+export const deleteEvent = (id) => {
+	const request = axios.delete(`/api/events/${id}`);
+	return {
+		type: DELETE_EVENT,
+		payload: request,
+	};
+}
+
+export const deleteEventSuccess = (deletedEvent) => {
+	return {
+		type: DELETE_EVENT_SUCCESS,
+		payload: deletedEvent,
+	};
+}
+
+export const deleteEventFailure = (error) => {
+	return {
+		type: DELETE_EVENT_ERROR,
 		payload: error,
 	};
 }

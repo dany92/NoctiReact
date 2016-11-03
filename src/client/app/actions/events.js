@@ -116,10 +116,10 @@ export const deleteEvent = (id) => {
 	};
 }
 
-export const deleteEventSuccess = (deletedEvent) => {
+export const deleteEventSuccess = (id) => {
 	return {
 		type: DELETE_EVENT_SUCCESS,
-		payload: deletedEvent,
+		payload: {data: { id }},
 	};
 }
 

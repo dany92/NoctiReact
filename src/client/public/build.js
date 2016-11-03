@@ -32066,7 +32066,7 @@
 	  return {
 	    deleteEvent: function deleteEvent() {
 	      dispatch((0, _events.deleteEvent)(eventId)).then(function (res) {
-	        return !res.error ? dispatch((0, _events.deleteEventSuccess)(res.payload)) : dispatch((0, _events.deleteEventFailure)(res.payload));
+	        return !res.error ? dispatch((0, _events.deleteEventSuccess)(eventId)) : dispatch((0, _events.deleteEventFailure)(res.payload));
 	      }).then(function () {
 	        _reactRouter.browserHistory.push('/events');
 	      });
@@ -32209,10 +32209,10 @@
 		};
 	};
 	
-	var deleteEventSuccess = exports.deleteEventSuccess = function deleteEventSuccess(deletedEvent) {
+	var deleteEventSuccess = exports.deleteEventSuccess = function deleteEventSuccess(id) {
 		return {
 			type: DELETE_EVENT_SUCCESS,
-			payload: deletedEvent
+			payload: { data: { id: id } }
 		};
 	};
 	
@@ -32995,7 +32995,11 @@
 			case _events.DELETE_EVENT:
 				return Object.assign({}, state, { deletedEvent: { event: {}, error: null, loading: true } });
 			case _events.DELETE_EVENT_SUCCESS:
-				return Object.assign({}, state, { deletedEvent: { event: action.payload.data, error: null, loading: false } });
+				return Object.assign({}, state, { eventsList: { events: state.eventsList.events.filter(function (event) {
+							return event.id !== action.payload.data.id;
+						}),
+						error: null, loading: false }
+				});
 			case _events.DELETE_EVENT_ERROR:
 				error = action.payload.data || { message: action.payload.message };
 				return Object.assign({}, state, { deletedEvent: { event: {}, error: error, loading: false } });

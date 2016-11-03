@@ -32,7 +32,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     deleteEvent: () => {
       dispatch(deleteEvent(eventId))
       .then((res) => !res.error ? 
-        dispatch(deleteEventSuccess(res.payload)) : 
+        dispatch(deleteEventSuccess(eventId)) : 
         dispatch(deleteEventFailure(res.payload))
       )
       .then(() => {

@@ -46,6 +46,7 @@ const INIT_STATE = {
 
 const events = (state = INIT_STATE, action) => {
 	let error;
+	let currentEventsList;
 	switch(action.type){
 		case FETCH_EVENTS:
 			return Object.assign({}, state, {eventsList: {events: [], error: null, loading: true}});
@@ -65,20 +66,40 @@ const events = (state = INIT_STATE, action) => {
 			return Object.assign({}, state, {newEvent: Object.assign({}, state.newEvent, {loading: true})});
 		case CREATE_EVENT_SUCCESS:
 			return Object.assign({}, state, {newEvent: {event: action.payload.data, error: null, loading: false}});
+			const createdEvent = action.payload.data;
+			currentEventsList = state.eventsList.events;
+			return Object.assign({}, state, {eventsList: 
+				{
+					events: [...currentEventsList, createdEvent],
+					error: null,
+					loading: false
+				}
+			});
 		case CREATE_EVENT_ERROR:
 			error = action.payload.data || {message: action.payload.message}
 			return Object.assign({}, state, {newEvent: {events: null, error: error, loading: false}});
 		case UPDATE_EVENT:
 			return Object.assign({}, state, {updatedEvent: {event: {}, error: null, loading: true}});
 		case UPDATE_EVENT_SUCCESS:
-			return Object.assign({}, state, {updatedEvent: {event: action.payload.data, error: null, loading: false}});
+			const updatedEvent = action.payload.data;
+			currentEventsList = state.eventsList.events;
+			return Object.assign({}, state, {eventsList: 
+				{
+					events: currentEventsList.map(event => {
+						if(event.id === updatedEvent.id) return updatedEvent;
+						return event;
+					}),
+					error: null,
+					loading: false
+				}
+			});
 		case UPDATE_EVENT_ERROR:
 			error = action.payload.data || {message: action.payload.message}
 			return Object.assign({}, state, {updatedEvent: {event: {}, error: error, loading: false}});
 		case DELETE_EVENT:
 			return Object.assign({}, state, {deletedEvent: {event: {}, error: null, loading: true}});
 		case DELETE_EVENT_SUCCESS:
-			const currentEventsList = state.eventsList.events;
+			currentEventsList = state.eventsList.events;
 			return Object.assign({}, state, {eventsList: {events: currentEventsList.filter(event => event.id !== action.payload.data.id),
 				error: null, loading: false}
 			});

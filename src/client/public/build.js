@@ -32928,7 +32928,11 @@
 		value: true
 	});
 	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	
 	var _events = __webpack_require__(307);
+	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
 	var INIT_STATE = {
 		eventsList: {
@@ -32963,50 +32967,108 @@
 		var action = arguments[1];
 	
 		var error = void 0;
-		switch (action.type) {
-			case _events.FETCH_EVENTS:
-				return Object.assign({}, state, { eventsList: { events: [], error: null, loading: true } });
-			case _events.FETCH_EVENTS_SUCCESS:
-				return Object.assign({}, state, { eventsList: { events: action.payload.data, error: null, loading: false } });
-			case _events.FETCH_EVENTS_ERROR:
-				error = action.payload.data || { message: action.payload.message };
-				return Object.assign({}, state, { eventsList: { events: [], error: error, loading: false } });
-			case _events.FETCH_ONE_EVENT:
-				return Object.assign({}, state, { currentEvent: { event: {}, error: null, loading: true } });
-			case _events.FETCH_ONE_EVENT_SUCCESS:
-				return Object.assign({}, state, { currentEvent: { event: action.payload.data, error: null, loading: false } });
-			case _events.FETCH_ONE_EVENT_ERROR:
-				error = action.payload.data || { message: action.payload.message };
-				return Object.assign({}, state, { currentEvent: { event: {}, error: error, loading: false } });
-			case _events.CREATE_EVENT:
-				return Object.assign({}, state, { newEvent: Object.assign({}, state.newEvent, { loading: true }) });
-			case _events.CREATE_EVENT_SUCCESS:
-				return Object.assign({}, state, { newEvent: { event: action.payload.data, error: null, loading: false } });
-			case _events.CREATE_EVENT_ERROR:
-				error = action.payload.data || { message: action.payload.message };
-				return Object.assign({}, state, { newEvent: { events: null, error: error, loading: false } });
-			case _events.UPDATE_EVENT:
-				return Object.assign({}, state, { updatedEvent: { event: {}, error: null, loading: true } });
-			case _events.UPDATE_EVENT_SUCCESS:
-				return Object.assign({}, state, { updatedEvent: { event: action.payload.data, error: null, loading: false } });
-			case _events.UPDATE_EVENT_ERROR:
-				error = action.payload.data || { message: action.payload.message };
-				return Object.assign({}, state, { updatedEvent: { event: {}, error: error, loading: false } });
-			case _events.DELETE_EVENT:
-				return Object.assign({}, state, { deletedEvent: { event: {}, error: null, loading: true } });
-			case _events.DELETE_EVENT_SUCCESS:
-				var currentEventsList = state.eventsList.events;
-				return Object.assign({}, state, { eventsList: { events: currentEventsList.filter(function (event) {
-							return event.id !== action.payload.data.id;
-						}),
-						error: null, loading: false }
-				});
-			case _events.DELETE_EVENT_ERROR:
-				error = action.payload.data || { message: action.payload.message };
-				return Object.assign({}, state, { deletedEvent: { event: {}, error: error, loading: false } });
-			default:
-				return state;
-		}
+		var currentEventsList = void 0;
+	
+		var _ret = function () {
+			switch (action.type) {
+				case _events.FETCH_EVENTS:
+					return {
+						v: Object.assign({}, state, { eventsList: { events: [], error: null, loading: true } })
+					};
+				case _events.FETCH_EVENTS_SUCCESS:
+					return {
+						v: Object.assign({}, state, { eventsList: { events: action.payload.data, error: null, loading: false } })
+					};
+				case _events.FETCH_EVENTS_ERROR:
+					error = action.payload.data || { message: action.payload.message };
+					return {
+						v: Object.assign({}, state, { eventsList: { events: [], error: error, loading: false } })
+					};
+				case _events.FETCH_ONE_EVENT:
+					return {
+						v: Object.assign({}, state, { currentEvent: { event: {}, error: null, loading: true } })
+					};
+				case _events.FETCH_ONE_EVENT_SUCCESS:
+					return {
+						v: Object.assign({}, state, { currentEvent: { event: action.payload.data, error: null, loading: false } })
+					};
+				case _events.FETCH_ONE_EVENT_ERROR:
+					error = action.payload.data || { message: action.payload.message };
+					return {
+						v: Object.assign({}, state, { currentEvent: { event: {}, error: error, loading: false } })
+					};
+				case _events.CREATE_EVENT:
+					return {
+						v: Object.assign({}, state, { newEvent: Object.assign({}, state.newEvent, { loading: true }) })
+					};
+				case _events.CREATE_EVENT_SUCCESS:
+					return {
+						v: Object.assign({}, state, { newEvent: { event: action.payload.data, error: null, loading: false } })
+					};
+					var createdEvent = action.payload.data;
+					currentEventsList = state.eventsList.events;
+					return {
+						v: Object.assign({}, state, { eventsList: {
+								events: [].concat(_toConsumableArray(currentEventsList), [createdEvent]),
+								error: null,
+								loading: false
+							}
+						})
+					};
+				case _events.CREATE_EVENT_ERROR:
+					error = action.payload.data || { message: action.payload.message };
+					return {
+						v: Object.assign({}, state, { newEvent: { events: null, error: error, loading: false } })
+					};
+				case _events.UPDATE_EVENT:
+					return {
+						v: Object.assign({}, state, { updatedEvent: { event: {}, error: null, loading: true } })
+					};
+				case _events.UPDATE_EVENT_SUCCESS:
+					var updatedEvent = action.payload.data;
+					currentEventsList = state.eventsList.events;
+					return {
+						v: Object.assign({}, state, { eventsList: {
+								events: currentEventsList.map(function (event) {
+									if (event.id === updatedEvent.id) return updatedEvent;
+									return event;
+								}),
+								error: null,
+								loading: false
+							}
+						})
+					};
+				case _events.UPDATE_EVENT_ERROR:
+					error = action.payload.data || { message: action.payload.message };
+					return {
+						v: Object.assign({}, state, { updatedEvent: { event: {}, error: error, loading: false } })
+					};
+				case _events.DELETE_EVENT:
+					return {
+						v: Object.assign({}, state, { deletedEvent: { event: {}, error: null, loading: true } })
+					};
+				case _events.DELETE_EVENT_SUCCESS:
+					currentEventsList = state.eventsList.events;
+					return {
+						v: Object.assign({}, state, { eventsList: { events: currentEventsList.filter(function (event) {
+									return event.id !== action.payload.data.id;
+								}),
+								error: null, loading: false }
+						})
+					};
+				case _events.DELETE_EVENT_ERROR:
+					error = action.payload.data || { message: action.payload.message };
+					return {
+						v: Object.assign({}, state, { deletedEvent: { event: {}, error: error, loading: false } })
+					};
+				default:
+					return {
+						v: state
+					};
+			}
+		}();
+	
+		if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
 	};
 	
 	exports.default = events;

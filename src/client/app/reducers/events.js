@@ -78,7 +78,8 @@ const events = (state = INIT_STATE, action) => {
 		case DELETE_EVENT:
 			return Object.assign({}, state, {deletedEvent: {event: {}, error: null, loading: true}});
 		case DELETE_EVENT_SUCCESS:
-			return Object.assign({}, state, {eventsList: {events: state.eventsList.events.filter(event => event.id !== action.payload.data.id),
+			const currentEventsList = state.eventsList.events;
+			return Object.assign({}, state, {eventsList: {events: currentEventsList.filter(event => event.id !== action.payload.data.id),
 				error: null, loading: false}
 			});
 		case DELETE_EVENT_ERROR:
